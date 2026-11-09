@@ -1,0 +1,27 @@
+name: release
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: write
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo build --release --workspace
+      - name: Package
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory dist | Out-Null
+          Copy-Item target/release/ember-studio.exe dist/
+          Copy-Item README.md, LICENSE dist/
+          Compress-Archive -Path dist/* -DestinationPath ember-studio-${{ github.ref_name }}-windows-x64.zip
+          (Get-FileHash ember-studio-${{ github.ref_name }}-windows-x64.zip -Algorithm SHA256).Hash.ToLower() + "  ember-studio-${{ github.ref_name }}-windows-x64.zip" | Out-File -Encoding ascii SHA256SUMS.txt
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ember-studio-${{ github.ref_name }}-windows-x64.zip
+            SHA256SUMS.txt

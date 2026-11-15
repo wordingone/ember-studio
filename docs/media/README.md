@@ -2,7 +2,9 @@
 
 Each recording is a sequence of frames of the one running Studio window, captured with the Windows PrintWindow call about five times a second while the window was driven with `ember-studio --act` (no mouse, no keys, no focus taken), then encoded to H.264 (mp4) and to a small GIF. Playback is at five frames per second, so it is a little choppy; that is the capture rate.
 
-There is no recording of the Agent tab and none of the Hour view: both print the author's live session or local paths. Their screenshots are in the [Agent](../tabs/agent.md) and [Train](../tabs/train.md) guides.
+The recordings below were made on build `185b8abd`. They have not been remade for build `be2abf05`, so a control may have moved since; the guides say which build each picture is from.
+
+There is no recording of the Agent tab and none of the Hour view: a live session or a live hour prints local paths. Their pictures, and the pictures of Train, Library and Research in their guides, are offscreen renders (`ember-studio monitor --render-png`) on made-up data, drawn by build `be2abf05`; see [how the pictures were made](../tabs/train.md#how-the-pictures-were-made). Guides: [Agent](../tabs/agent.md), [Train](../tabs/train.md), [Hour view](../tabs/hour-view.md), [Library](../tabs/library.md), [Research](../tabs/research.md).
 
 | Recording | What it shows | mp4 | gif | Size (mp4 / gif) |
 | --- | --- | --- | --- | --- |

@@ -6,17 +6,19 @@ Measured on 2026-11-15 against commit `185b8abd` of the private source repositor
 
 Built on Windows 11 from a clean checkout of that commit, with the dependencies the lock file names, offline, four compile jobs at below-normal priority. The program's Windows subsystem is GUI (no console window). The exe was started with `ui-tree` and its output matched the build the documentation was written against, line for line apart from a timestamp.
 
-## Linux (not available)
+## Linux (not available: it compiles, the tests do not)
 
-**Result: no Linux build exists.** The attempt was made in WSL (Ubuntu, Rust 1.96, gcc present) from the same commit, using only a `git archive` of the committed tree. It stopped at dependency resolution: the Linux-only crates the lock file names (the Linux windowing and accessibility crates, for example `accesskit_unix`) are not in any local cache, and fetching them needs the network. No dependency was downloaded to make this attempt.
+**Result: no Linux download exists, and none will be published until the tests pass.** What was measured on 2026-11-15, in WSL (Ubuntu, Rust stable), from a `git archive` of the same committed tree:
 
-What this tells us about the code, read from the committed tree:
+- **Compiles.** The locked dependencies were fetched from crates.io at the versions and checksums in the lock file, and `cargo build --release --locked` finished in about two minutes with four jobs. No system package was needed to compile. The result is a 25 MB dynamically linked x86-64 ELF program. Disk used inside WSL: about 0.85 GB of build output and 0.58 GB of downloaded crates.
+- **Draws.** `ui-tree` prints the control names, and `monitor --render-png` draws the Library, Models and Train tabs offscreen. A real window opened and drew the Agent tab under a virtual display (Xvfb). The windows were never shown on a desktop.
+- **Says what it is.** The Train tab's context line reads `unsupported-platform` and its body reads `lab not answering`. The Agent tab, on first draw, showed `error: ember-lab agent state could not start: No such file or directory`, because no lab program exists there.
+- **Tests do not build.** `cargo test --release --locked` stops with two compile errors: test code uses the Windows-only `std::os::windows` exit-status API. Until the test code is made portable and the tests pass, a Linux build is not released.
+- **Not checked:** a Linux session with a real desktop (X11 or Wayland), mouse and keyboard use, the ember-cli panel, and the lab client on Linux. The program was never run against a lab.
 
-- The Windows-only parts of Studio are 31 `cfg(windows)` sites in 13 source files. Fifteen `cfg(not(windows))` or `cfg(unix)` sites already exist, mostly as stubs (single-instance, process handling, the home time zone, the press receipts path).
-- The things a Linux build must still replace: the lab client is a Windows named-pipe client (`\\.\pipe\ember-lab-NAME`), so it needs a Unix socket transport; the embedded ember-cli panel is a Windows pseudoconsole (ConPTY) host, so it needs a pty (`openpty`) host; the single-window rule uses a Windows named mutex and pipe; the folder dialog of the Research project uses the Windows shell; GPU power and utilisation read NVML, which is present on Linux with an NVIDIA driver.
-- The CI file already in this repository lists Linux GUI packages (libxkbcommon, GTK 3 and several libxcb development packages). They would be needed to build on Ubuntu.
+What a complete Linux port still involves, read from the committed tree: 31 `cfg(windows)` sites in 13 source files and 15 `cfg(not(windows))` or `cfg(unix)` sites, mostly stubs. The lab client speaks a Windows named pipe, so it needs a Unix socket transport; the embedded ember-cli panel is a Windows pseudoconsole host; the single-window rule uses a Windows named mutex. These are why the platform line says `unsupported-platform`. A Linux Studio also needs a Linux ember-lab: the lab daemon has about 270 `cfg(windows)` sites (card lock, fixed paths, named pipe), and porting them is the larger half of the cure. It is queued after the folder settings; no date is promised.
 
-**Cure and cost.** The smallest honest target is a Studio that runs on Linux as a viewer of files (Library, Models, Evals, Weights, Research, Timeline) with the lab client on a Unix socket. The five replacements above are each a bounded change; they are an estimate, not a measurement, and the lab daemon itself (about 270 `cfg(windows)` sites) is a much larger port and is not part of this target.
+**Next steps:** make the two test sites portable and run the tests; test the window on a real Linux desktop; add a Unix socket for the lab client; port the lab's Windows-only parts.
 
 ## macOS (not available)
 
@@ -24,7 +26,7 @@ What this tells us about the code, read from the committed tree:
 
 What blocks it:
 
-1. The same five Windows-only parts as Linux. The windowing stack (eframe with the glow renderer) supports macOS, so the user interface itself is not the blocker.
+1. The same Windows-only parts as Linux (lab client pipe, ember-cli pseudoconsole host, single-window rule). The windowing stack (eframe with the glow renderer) supports macOS, so the user interface itself is not the blocker.
 2. No NVIDIA GPU or NVML on a Mac. Studio's GPU readouts would be empty; the pages that do not need them are unaffected.
 3. The lab daemon does not target macOS: it manages CUDA jobs, Windows job objects and card locks.
 4. No hardware here, and no hosted runner that can read the private source for free.
@@ -33,7 +35,7 @@ What it would cost on GitHub-hosted runners. GitHub's published rules: standard 
 
 Cures, cheapest first:
 
-- Do the port work (the five replacements) and test it on Linux first, where a build in WSL costs nothing.
+- Do the port work (a Unix socket for the lab client, a pty for the cli panel) and test it on Linux first, where a build in WSL costs nothing.
 - Build macOS on a Mac you own (a self-hosted runner or by hand) and attach the result to the release; nothing is billed.
 - Run the macOS build on a hosted runner only for tagged releases, with caching, so a release costs a small number of the ten-times minutes.
 - Publishing the source would make hosted macOS runners free, but that is the owner's decision and not part of this work.
@@ -42,6 +44,6 @@ Cures, cheapest first:
 
 | OS | Today | First step |
 | --- | --- | --- |
-| Windows | build 185b8abd, x64 | release it |
-| Linux | none; blocked on a dependency fetch, then the five replacements | fetch the locked crates in WSL and see how far the build gets |
+| Windows | build be2abf05, x64 | release it |
+| Linux | none; compiles and draws in WSL, tests do not build | make the test code portable, then test on a real Linux desktop |
 | macOS | none; no hardware, no free runner | port on Linux first, then build on a Mac |

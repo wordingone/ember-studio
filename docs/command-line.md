@@ -1,6 +1,6 @@
 # Command line and driving Studio from scripts
 
-Every control of the window has a stable name and can be operated by a script without a mouse and without taking the keyboard focus. This page lists the commands and the roots the pages read. In examples `ember-studio` stands for the exe you run (`ember-studio-185b8abd.exe`).
+Every control of the window has a stable name and can be operated by a script without a mouse and without taking the keyboard focus. This page lists the commands and the roots the pages read. In examples `ember-studio` stands for the exe you run (`ember-studio-edb7d3ad.exe`).
 
 ## Commands
 
@@ -8,7 +8,7 @@ Every control of the window has a stable name and can be operated by a script wi
 | --- | --- |
 | `ember-studio monitor [options]` | Opens the window. Takes the roots below and `--mode SLUG` to open on a tab |
 | `ember-studio monitor --headless --json` | Prints one JSON snapshot and exits; opens no window |
-| `ember-studio monitor --render-png FILE [--mode SLUG] [--size WxH]` | Draws a tab offscreen to a PNG, with no window and no GPU, and prints a render receipt. `--agent-stub SCENARIO` draws the Agent tab on a scripted conversation |
+| `ember-studio monitor --render-png FILE [--mode SLUG] [--size WxH]` | Draws a tab offscreen to a PNG, with no window and no GPU, and prints a render receipt. Starts no window, so it does not trip the one-window rule and takes no focus. See [render options](#render-options) |
 | `ember-studio --act NAME` | Operates a control of the **running** window (see below) |
 | `ember-studio ui-tree [--mode SLUG] [--json]` | Draws a tab offscreen and prints every control's accessible name, role, value and disabled reason. Opens no window |
 | `ember-studio status [--job ID]` | Asks the lab about a job and reads its log, in words |
@@ -17,6 +17,24 @@ Every control of the window has a stable name and can be operated by a script wi
 `SLUG` is one of `train`, `library`, `models`, `evals`, `weights`, `research`, `console`, `timeline`, `agent`.
 
 Studio is a GUI program, so a shell does not wait for it. In PowerShell run a command that prints through a pipe, for example `ember-studio ui-tree | Out-String`, or `Start-Process -Wait -PassThru`, to read its output and exit code.
+
+## Render options
+
+`monitor --render-png` draws the real window to a file, which is how the pictures in these guides were made, and a way to check a page without opening one. Options that only a render takes:
+
+| Option | Draws |
+| --- | --- |
+| `--mode SLUG` | that tab (`train`, `library`, `models`, `evals`, `weights`, `research`, `console`, `timeline`, `agent`) |
+| `--size WxH`, `--scale F` | the picture size (default 1600x1000) and a scale factor |
+| `--settle SECS` | waits that long after the first read, so a page that asks the lab has its answer |
+| `--select KEY` | the tab with one element selected, so the right panel shows its detail. A key is `<kind>:<id>`: `pack:<name>`, `model:<slug>`, `file:<name>`, `hour:<slug>`, `pair:<TAG>`, `hyp:<id>`, `exp:<id>` and so on. A key the page does not hold is cleared |
+| `--press [--script P] [--sha256 H] [--log L]` | the [Hour view](tabs/hour-view.md) with its checks and the lab's job |
+| `--dock cli\|run\|sources\|energy\|lr` | the right dock open on that tab |
+| `--agent-stub SCENARIO [--agent-input TEXT]` | the Agent tab on a scripted conversation: `cold`, `waking`, `awake`, `streaming`, `done`, `markdown`, `card_busy`, `card_yielded`, `card_yielding`, `card_yield_failed`, `card_held`, `error`, `asleep`, `sending` |
+| `--project FILE` | Research with that project file open (accepted by this build; `--help` does not list it) |
+| `--train-history`, `--dock-history`, `--history`, `--lineage`, `--compare` | the old 3B views, the dock's history rows, Evals history, the Models lineage and the compare frame |
+
+Exit codes: 0 rendered, 3 bad arguments, 4 render failed. A page reads its sources once in a render and says so (`read once`).
 
 ## Operate the running window: `--act`
 

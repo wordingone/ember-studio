@@ -1,6 +1,6 @@
 # 05 Weights
 
-How much of a model's weights each training hour changed. The picture was drawn by build `be2abf05` offscreen on made-up hour receipts (see [how the pictures were made](train.md#how-the-pictures-were-made)); the recording is from `185b8abd`.
+How much of a model's weights each training hour changed. The picture was drawn by build `edb7d3ad` offscreen on made-up hour receipts (see [how the pictures were made](train.md#how-the-pictures-were-made)); the recording is from `185b8abd`.
 
 ## What it shows
 
@@ -23,7 +23,7 @@ If no receipts root is configured the page says so and gives the flag.
 | GROUP | BY PARAMETER / BY LAYER | Chooses whether the rows are one per parameter or grouped by layer. The one in use is disabled, with a reason |
 | HOUR | NEWEST / OLDEST | Selects the newest or the oldest hour |
 
-BY LAYER and the HOUR buttons were not pressed on `be2abf05`; they were operated on `185b8abd`:
+BY LAYER and the HOUR buttons were not pressed on `edb7d3ad`; they were operated on `185b8abd`:
 
 ![Recording: BY LAYER, BY PARAMETER, then OLDEST and NEWEST](../media/weights.gif)
 

@@ -1,12 +1,12 @@
 # 02 Library
 
-The data the lab holds, as a place you can look around. The room pictures were drawn by build `be2abf05` on made-up data (see [how the pictures were made](train.md#how-the-pictures-were-made)). The list view was checked on `185b8abd`.
+The data the lab holds, as a place you can look around. The room pictures were drawn by build `edb7d3ad` on made-up data (see [how the pictures were made](train.md#how-the-pictures-were-made)). The list view was checked on `185b8abd`.
 
 ## What it shows
 
 The page reads the data packs under the lane root (`--data-root`, reading `<DIR>/packed/*`) and re-reads every 4 seconds while the tab is open. Two views of the same packs.
 
-**Room** (the default): a 3D room of shelves with every pack drawn as a book, sized by its bytes, with an orange line along its spine. Labelled callouts name areas of the room (in the picture, a reading room) with their size. A footer counts what is in the room: books, shelves, total size, how many packs are local, how many are on Hugging Face only, and how many are arriving. A **HUD** button sits at the right of the footer.
+**Room** (the default): a 3D room of shelves with every pack drawn as a book, sized by its bytes, with an orange line along its spine. Labelled callouts name areas of the room (in the picture, a reading room) with their size. A footer counts what is in the room: books, shelves, total size, how many packs are local, how many are on Hugging Face only, and how many are arriving. A **HUD** button sits at the right of the footer. With nothing selected, the right panel lists the largest packs as bars with their sizes.
 
 ![The 3D room: every pack a book on a shelf](../media/library-room.png)
 

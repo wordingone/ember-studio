@@ -1,6 +1,6 @@
 # Command line and driving Studio from scripts
 
-Every control of the window has a stable name and can be operated by a script without a mouse and without taking the keyboard focus. This page lists the commands and the roots the pages read. In examples `ember-studio` stands for the exe you run (`ember-studio-be2abf05.exe`).
+Every control of the window has a stable name and can be operated by a script without a mouse and without taking the keyboard focus. This page lists the commands and the roots the pages read. In examples `ember-studio` stands for the exe you run (`ember-studio-edb7d3ad.exe`).
 
 ## Commands
 

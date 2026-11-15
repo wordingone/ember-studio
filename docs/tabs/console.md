@@ -1,6 +1,6 @@
 # 07 Console
 
-The lab's events for a job, and the tail of the job's log. The picture was drawn by build `be2abf05` offscreen on made-up data (see [how the pictures were made](train.md#how-the-pictures-were-made)); the recording was made on `185b8abd`.
+The lab's events for a job, and the tail of the job's log. The picture was drawn by build `edb7d3ad` offscreen on made-up data (see [how the pictures were made](train.md#how-the-pictures-were-made)); the recording was made on `185b8abd`.
 
 ## What it shows
 
@@ -20,7 +20,7 @@ The page reads once per visit and says when (`read at ... · read once`). If no 
 | EVENTS | ERRORS ONLY | Keeps only error lines. When the log has none the page says "no row of this page is error lines" and how many rows were all cut |
 | JOB | JOB STATE | Asks the lab again; a note appears in the menu bar saying the job state, events and the log tail are being read again |
 
-Not pressed for this guide on `be2abf05`: all three. They were operated on `185b8abd`:
+Not pressed for this guide on `edb7d3ad`: all three. They were operated on `185b8abd`:
 
 ![Recording: ERRORS ONLY on and off, then JOB STATE](../media/console.gif)
 

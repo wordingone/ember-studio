@@ -1,6 +1,6 @@
 # 00 Agent
 
-A chat with the lab's resident model, which can read and edit files in one working folder you choose, under approvals you control. The pictures were drawn by build `be2abf05`.
+A chat with the lab's resident model, which can read and edit files in one working folder you choose, under approvals you control. The pictures were drawn by build `edb7d3ad`.
 
 > Every picture on this page is drawn on a scripted conversation (`monitor --render-png` with `--agent-stub`), not a live model, so that no real session is published. The window and its controls are the real ones. There is no screen recording of this tab for the same reason; see [Known limits](../known-limits.md).
 

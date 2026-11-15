@@ -44,6 +44,6 @@ Cures, cheapest first:
 
 | OS | Today | First step |
 | --- | --- | --- |
-| Windows | build be2abf05, x64 | release it |
+| Windows | build edb7d3ad, x64 | release it |
 | Linux | none; compiles and draws in WSL, tests do not build | make the test code portable, then test on a real Linux desktop |
 | macOS | none; no hardware, no free runner | port on Linux first, then build on a Mac |

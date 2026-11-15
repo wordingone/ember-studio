@@ -1,6 +1,6 @@
 # 06 Research
 
-A workbench for transplant experiments: a donor network and a recipient network drawn in 3D, the live experiments beneath them, a research project file, and a paper pane. The pictures were drawn by build `be2abf05` on made-up data (see [how the pictures were made](train.md#how-the-pictures-were-made)): a project named `demo-transplant` with two experiments and two small models called `demo-donor` and `demo-recipient`.
+A workbench for transplant experiments: a donor network and a recipient network drawn in 3D, the live experiments beneath them, a research project file, and a paper pane. The pictures were drawn by build `edb7d3ad` on made-up data (see [how the pictures were made](train.md#how-the-pictures-were-made)): a project named `demo-transplant` with two experiments and two small models called `demo-donor` and `demo-recipient`.
 
 ## What it shows
 
@@ -12,7 +12,7 @@ A workbench for transplant experiments: a donor network and a recipient network 
 - **Live experiments** beneath the panes is a card per experiment with its kind (here LEARN and LOCATE), its state (`NO JOB` when no job is attached, otherwise RUNNING or DONE) and a small chart of its loss or its measurement, or `nothing to draw yet`. The header counts how many are running.
 - The **right panel** shows four small counters, each with an icon and no text label, until something is selected. Selecting an experiment shows its detail: its kind and four marked read-outs, spec, bar, jobs and results (below, `e2` shows LOCATE, `spec` and `bar` with empty marks, `0 job` and `0 result`).
 
-![The second experiment chosen; the right panel shows its detail](../media/research-e2.png)
+![Experiment e2 selected: the right panel shows its detail](../media/research-e2.png)
 
 Layer buttons (all layers, L6, L12, L18) and link lines appear for an experiment that has links; those were checked on build `185b8abd` and are not in these pictures. The recording below is of that build.
 

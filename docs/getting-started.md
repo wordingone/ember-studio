@@ -1,10 +1,10 @@
 # Getting started
 
-Every guide was redrawn on the Windows build `be2abf05` (Ember Studio v0.5.0 preview). The recordings, the 3B history pictures (Train, Evals, Models) and the Library list view are from the earlier build `185b8abd`, and each guide says so beside the picture. Windows 11. Where something is not working yet it is in [Known limits](known-limits.md), never described here as a feature.
+Every guide was redrawn on the Windows build `edb7d3ad` (Ember Studio v0.5.0 preview). The recordings, the 3B history pictures (Train, Evals, Models) and the Library list view are from the earlier build `185b8abd`, and each guide says so beside the picture. Windows 11. Where something is not working yet it is in [Known limits](known-limits.md), never described here as a feature.
 
 ## 1. Install and open
 
-Follow [install](install.md), then run `ember-studio-be2abf05.exe`. A single window titled "Ember Studio" opens. Studio is a Windows GUI program: no console opens with it, and closing the terminal you started it from does not close it.
+Follow [install](install.md), then run `ember-studio-edb7d3ad.exe`. A single window titled "Ember Studio" opens. Studio is a Windows GUI program: no console opens with it, and closing the terminal you started it from does not close it.
 
 Only one Studio window can exist on a machine. Starting a second one opens nothing; it hands its arguments to the first window, prints `STUDIO_ALREADY_RUNNING pid=<n>` and exits. See [command line](command-line.md).
 
@@ -27,7 +27,7 @@ Top to bottom:
 Studio is a client of two things: files on your disk and a running ember-lab. The lab is not released yet (preview, Studio only), so what needs it does not work on your machine until it is. A page whose source is not configured says which flag to give, in words, for example `no models folder is configured: pass --models-root DIR`. Start Studio with the roots you have:
 
 ```
-ember-studio-be2abf05.exe monitor --models-root <models folder> --data-root <data packs folder> --learn-root <learn runs folder>
+ember-studio-edb7d3ad.exe monitor --models-root <models folder> --data-root <data packs folder> --learn-root <learn runs folder>
 ```
 
 The full list of roots, and what each tab reads, is in [command line](command-line.md#roots-the-pages-read).
@@ -57,4 +57,4 @@ Short screen recordings of each of these are in [media](media/README.md).
 
 ## 6. Drive Studio from a script
 
-Every control has a stable name and can be operated without a mouse and without taking the keyboard focus: `ember-studio-be2abf05.exe --act mode.evals` switches the running window to Evals. See [command line](command-line.md).
+Every control has a stable name and can be operated without a mouse and without taking the keyboard focus: `ember-studio-edb7d3ad.exe --act mode.evals` switches the running window to Evals. See [command line](command-line.md).

@@ -1,6 +1,6 @@
 # Known limits
 
-What does not work, is not built, or was not checked in build `be2abf05` (v0.5.0 preview; the recordings, the 3B history pictures and the Library list view are from `185b8abd`). Nothing here is described as a feature anywhere else in these docs.
+What does not work, is not built, or was not checked in build `edb7d3ad` (v0.5.0 preview; the recordings, the 3B history pictures and the Library list view are from `185b8abd`). Nothing here is described as a feature anywhere else in these docs.
 
 ## Not in this release
 
@@ -25,7 +25,7 @@ What does not work, is not built, or was not checked in build `be2abf05` (v0.5.0
 - Picking models into the Models compare frames, and the compare control on an Evals pair.
 - The Library room's HUD button and mouse navigation of the 3D room; the Train FOLLOW LATEST, FIT and JSON buttons; the Train dock's ENERGY and LR tabs.
 - The Agent tab's approvals, session list and `--act-set` route. The Agent tab pictures are drawn on a scripted conversation, not a live model, and there is no recording of it, so that no real session is published. The yield states (`YIELDING`, `YIELDED`, `yield failed`) are drawn from scripted scenarios; a real yield to a job was not run for this guide.
-- Console's FOLLOW, ERRORS ONLY and JOB STATE; Timeline's 1H, 24H, PRESS and LAB; Evals' HISTORY and the pair compare control; Weights' BY LAYER and HOUR buttons. They were operated on `185b8abd`, and only drawn in their default state on `be2abf05`.
+- Console's FOLLOW, ERRORS ONLY and JOB STATE; Timeline's 1H, 24H, PRESS and LAB; Evals' HISTORY and the pair compare control; Weights' BY LAYER and HOUR buttons. They were operated on `185b8abd`, and only drawn in their default state on `edb7d3ad`.
 - Studio on a machine without an NVIDIA GPU.
 
 ## Behaviour worth knowing

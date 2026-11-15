@@ -1,6 +1,6 @@
 # 01 Train
 
-The job the lab is running now, as three cards; the right dock with its four tabs; and the way into the [Hour view](hour-view.md) for starting, watching and stopping an hour. The pictures were drawn by build `be2abf05`; see [how the pictures were made](#how-the-pictures-were-made).
+The job the lab is running now, as three cards; the right dock with its four tabs; and the way into the [Hour view](hour-view.md) for starting, watching and stopping an hour. The pictures were drawn by build `edb7d3ad`; see [how the pictures were made](#how-the-pictures-were-made).
 
 ## What it shows
 
@@ -41,7 +41,7 @@ With no job and nothing from the lab, the page says `lab not answering` (the lab
 
 The **left rail** (HOUR, LOSS, CURVE, TOK/S, POWER) takes one chart across the whole canvas; press the same button again to give the four back. HOUR is the Hour view; the other four are the charts.
 
-Operated for this guide, on build `be2abf05` offscreen: the page with a running job, the dock's RUN and SOURCES tabs, and the Hour view. Described from the control list, not pressed: FOLLOW LATEST, FIT, JSON and STOP, and the dock's ENERGY and LR tabs. A recording of the earlier build is in [media](../media/README.md).
+Operated for this guide, on build `edb7d3ad` offscreen: the page with a running job, the dock's RUN and SOURCES tabs, and the Hour view. Described from the control list, not pressed: FOLLOW LATEST, FIT, JSON and STOP, and the dock's ENERGY and LR tabs. A recording of the earlier build is in [media](../media/README.md).
 
 ## How the pictures were made
 

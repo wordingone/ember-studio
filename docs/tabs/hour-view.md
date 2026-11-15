@@ -1,6 +1,6 @@
 # Hour view
 
-The form for starting a governed training hour through the lab, and the place that shows the job and stops it. It is the first rail button on [Train](train.md) (HOUR), or the HOUR button in Train's ribbon. The picture was drawn by build `be2abf05` on made-up data.
+The form for starting a governed training hour through the lab, and the place that shows the job and stops it. It is the first rail button on [Train](train.md) (HOUR), or the HOUR button in Train's ribbon. The picture was drawn by build `edb7d3ad` on made-up data.
 
 Studio runs nothing itself. It asks ember-lab to start, watch and stop the hour; the lab owns the job.
 

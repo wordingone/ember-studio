@@ -1,6 +1,6 @@
 # 04 Evals
 
-How much better a donor is than its recipient on a benchmark, against a significance bar, and the older held-out score per training hour. The pair pictures were drawn by build `be2abf05` offscreen on made-up data (see [how the pictures were made](train.md#how-the-pictures-were-made)); the History picture and the recording are from `185b8abd`.
+How much better a donor is than its recipient on a benchmark, against a significance bar, and the older held-out score per training hour. The pair pictures were drawn by build `edb7d3ad` offscreen on made-up data (see [how the pictures were made](train.md#how-the-pictures-were-made)); the History picture and the recording are from `185b8abd`.
 
 ## What it shows
 

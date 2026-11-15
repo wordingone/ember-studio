@@ -1,6 +1,6 @@
 # 03 Models
 
-The models in play, drawn as a map, the older checkpoint lineage, and a side by side compare. The map and compare pictures were drawn by build `be2abf05` offscreen on made-up folders (see [how the pictures were made](train.md#how-the-pictures-were-made)); the lineage picture and the recording are from `185b8abd`.
+The models in play, drawn as a map, the older checkpoint lineage, and a side by side compare. The map and compare pictures were drawn by build `edb7d3ad` offscreen on made-up folders (see [how the pictures were made](train.md#how-the-pictures-were-made)); the lineage picture and the recording are from `185b8abd`.
 
 ## What it shows
 

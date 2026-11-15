@@ -12,7 +12,7 @@ A native desktop research environment for producing, investigating and understan
 
 | Platform | Build | Status |
 | --- | --- | --- |
-| Windows 10/11, x64 | `ember-studio-0.5.0-be2abf05-windows-x64.zip` from the [Releases page](https://github.com/wordingone/ember-studio/releases) | preview, Studio only (ember-lab release pending); available once published |
+| Windows 10/11, x64 | `ember-studio-0.5.0-edb7d3ad-windows-x64.zip` from the [Releases page](https://github.com/wordingone/ember-studio/releases) | preview, Studio only (ember-lab release pending); available once published |
 | Linux | none | compiles and draws in WSL, tests not passing yet; see [platforms](docs/platforms.md) |
 | macOS | none | not built yet; see [platforms](docs/platforms.md) |
 
@@ -20,10 +20,10 @@ Verify the download against `SHA256SUMS` on the release page before you run it. 
 
 ## Quick start (Windows)
 
-1. Unzip, then run `ember-studio-be2abf05.exe` (no installer, no console window).
+1. Unzip, then run `ember-studio-edb7d3ad.exe` (no installer, no console window).
 2. The window opens on the tab you used last. Press `Ctrl+9` for the Agent tab or `Ctrl+1` to `Ctrl+8` for the others.
 3. Studio reads files on your machine and asks ember-lab questions over a local pipe. The lab is not released yet, so on your machine the lab-dependent parts (starting a job, the Agent tab's model, live job state) will say in words that the lab is not answering; they do not work.
-4. Point a page at your data with a flag, for example `ember-studio-be2abf05.exe monitor --models-root <folder of models> --data-root <folder of data packs>`. The full list of roots is in [docs/command-line.md](docs/command-line.md).
+4. Point a page at your data with a flag, for example `ember-studio-edb7d3ad.exe monitor --models-root <folder of models> --data-root <folder of data packs>`. The full list of roots is in [docs/command-line.md](docs/command-line.md).
 
 Start with [Getting started](docs/getting-started.md).
 

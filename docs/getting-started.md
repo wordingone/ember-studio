@@ -1,6 +1,6 @@
 # Getting started
 
-The guides for Train, the Hour view, Agent, Library and Research were drawn and checked on the Windows build `be2abf05` (Ember Studio v0.5.0 preview); the other tabs were checked on the earlier build `185b8abd`, and each guide says which. Windows 11. Where something is not working yet it is in [Known limits](known-limits.md), never described here as a feature.
+Every guide was redrawn on the Windows build `be2abf05` (Ember Studio v0.5.0 preview). The recordings, the 3B history pictures (Train, Evals, Models) and the Library list view are from the earlier build `185b8abd`, and each guide says so beside the picture. Windows 11. Where something is not working yet it is in [Known limits](known-limits.md), never described here as a feature.
 
 ## 1. Install and open
 

@@ -6,13 +6,13 @@ A native desktop research environment for producing, investigating and understan
 
 *The Library tab in its 3D room view: the data packs drawn as books on shelves, with a footer that counts books, shelves, local, Hugging Face only and arriving. More screenshots and recordings are in the [tab guides](docs/tabs/).*
 
-**Status: early development (v0.5.0).** Studio runs on Windows today. Linux and macOS builds do not exist yet; [what blocks them](docs/platforms.md) is written down. Several parts of the program are read-only viewers while the lab learns new job kinds; each guide says exactly what works. Expect breaking changes.
+**Status: preview (v0.5.0).** Studio needs ember-lab to start or watch anything: it is the client, and the lab owns every training run and model server. **The ember-lab release is pending**: the lab still has to be changed so its folders are settings you can set, and until then only Studio is published. Without a lab, Studio opens and the pages that read files work, but training, the agent's model and every other part that asks the lab do not. No date is promised. Studio runs on Windows today. Linux and macOS builds do not exist yet; [what blocks them](docs/platforms.md) is written down. Several parts of the program are read-only viewers while the lab learns new job kinds; each guide says exactly what works. Expect breaking changes.
 
 ## Download
 
 | Platform | Build | Status |
 | --- | --- | --- |
-| Windows 10/11, x64 | `ember-studio-0.5.0-185b8abd-windows-x64.zip` from the [Releases page](https://github.com/wordingone/ember-studio/releases) | available once the release is published |
+| Windows 10/11, x64 | `ember-studio-0.5.0-185b8abd-windows-x64.zip` from the [Releases page](https://github.com/wordingone/ember-studio/releases) | preview, Studio only (ember-lab release pending); available once published |
 | Linux | none | not built yet; see [platforms](docs/platforms.md) |
 | macOS | none | not built yet; see [platforms](docs/platforms.md) |
 
@@ -22,7 +22,7 @@ Verify the download against `SHA256SUMS` on the release page before you run it. 
 
 1. Unzip, then run `ember-studio-185b8abd.exe` (no installer, no console window).
 2. The window opens on the tab you used last. Press `Ctrl+9` for the Agent tab or `Ctrl+1` to `Ctrl+8` for the others.
-3. Studio reads files on your machine and asks ember-lab questions over a local pipe. With no lab running, the pages that need it say so in words; nothing breaks.
+3. Studio reads files on your machine and asks ember-lab questions over a local pipe. The lab is not released yet, so on your machine the lab-dependent parts (starting a job, the Agent tab's model, live job state) will say in words that the lab is not answering; they do not work.
 4. Point a page at your data with a flag, for example `ember-studio-185b8abd.exe monitor --models-root <folder of models> --data-root <folder of data packs>`. The full list of roots is in [docs/command-line.md](docs/command-line.md).
 
 Start with [Getting started](docs/getting-started.md).

@@ -16,7 +16,7 @@ Studio's own record of what it asked is its **press receipts**, a JSON-lines fil
 
 ## What happens when the lab is not there
 
-Nothing breaks. Pages that need the lab say so in words, for example "the lab did not answer: the pipe does not exist, so the lab daemon is not running". A page that reads files (Library, Models, Weights) keeps working. `ember-studio status --lab-pipe <name of a pipe nobody serves>` prints the same sentence on the command line.
+Studio does not crash. Pages that ask the lab say so in words, for example "the lab did not answer: the pipe does not exist, so the lab daemon is not running". Whatever needs the lab (starting or stopping a job, live job state, the Agent tab's model) does not work without it. The pages that read folders (Library, Models, Weights) are built to read files directly, but that was not checked on a machine that has never had the lab. `ember-studio status --lab-pipe <name of a pipe nobody serves>` prints the same sentence on the command line.
 
 ## The GPU card
 

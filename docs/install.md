@@ -1,5 +1,7 @@
 # Install
 
+> **Preview, Studio only.** This release contains Ember Studio and nothing else. Studio is a client of ember-lab and needs it to start or watch training, to run the Agent tab's model and to show live job state. **The ember-lab release is pending** until the lab's folders are configurable; no date is promised. Installing Studio alone gives you a window that opens and reads the folders you point it at, and says in words that the lab is not answering. It does not train or serve a model by itself.
+
 ## Which builds exist today
 
 | OS | Build | Notes |

@@ -4,7 +4,7 @@ What does not work, is not built, or was not checked in build `185b8abd` (v0.5.0
 
 ## Not in this release
 
-- **No lab daemon.** ember-lab is built from the same commit but is not released: it still contains fixed paths to the author's machine (its card lock folder, model server and model locations), so it would not run on another computer. Studio therefore shows what it can read from files and says plainly when the lab is absent. Releasing the lab needs those paths turned into settings first.
+- **No lab daemon, and Studio needs it.** This is a preview of Studio only. The lab release is pending until its folders are configurable; no date is promised. Starting or stopping a job, live job state and the Agent tab's model all need the lab and do not work without it. ember-lab is built from the same commit but is not released: it still contains fixed paths to the author's machine (its card lock folder, model server and model locations), so it would not run on another computer. Studio says plainly when the lab is absent. Releasing the lab needs those paths turned into settings first.
 - **No Linux and no macOS build.** See [platforms](platforms.md).
 - **The build is not code-signed.** Windows SmartScreen may warn.
 - **Terms for the released program** are separate from this repository's licence; they have not been published yet. Read [LICENSE](../LICENSE) for what it covers.

@@ -24,7 +24,7 @@ Top to bottom:
 
 ## 3. Tell Studio where your files are
 
-Studio is a client of two things: files on your disk and a running ember-lab. A page whose source is not configured says which flag to give, in words, for example `no models folder is configured: pass --models-root DIR`. Start Studio with the roots you have:
+Studio is a client of two things: files on your disk and a running ember-lab. The lab is not released yet (preview, Studio only), so what needs it does not work on your machine until it is. A page whose source is not configured says which flag to give, in words, for example `no models folder is configured: pass --models-root DIR`. Start Studio with the roots you have:
 
 ```
 ember-studio-185b8abd.exe monitor --models-root <models folder> --data-root <data packs folder> --learn-root <learn runs folder>

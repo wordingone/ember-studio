@@ -1,0 +1,25 @@
+{
+  "schema": "ember-lab-job-intent-v1",
+  "kind": "inspect",
+  "job_id": "inspect-5aef96240bca-c7ce66d0",
+  "fingerprint": "5aef96240bca5582e6fd0468879a26863d81d1c1fb602def55926ef33ec8bb1f",
+  "class": "cpu",
+  "lease": "cpu-lane",
+  "cache_hit": false,
+  "daemon_pid": 1234,
+  "worker": {
+    "path": "/opt/ember/ember-lab",
+    "sha256": "83e9d5dd8cecec262b7c7061a9af21889429cf61abbdd25d374e1ce2595ae4fb"
+  },
+  "cpu_mask_policy": "inherit",
+  "cpu_class_mask": null,
+  "inspect_background": true,
+  "result_path": "/work/lab.logs/inspect-cache/5aef96240bca5582e6fd0468879a26863d81d1c1fb602def55926ef33ec8bb1f.json",
+  "request": {
+    "kind": "inspect",
+    "checkpoint": "/models/example/model.safetensors",
+    "parent": null,
+    "grid": 16
+  },
+  "intent_at_ms": 1700000000000
+}

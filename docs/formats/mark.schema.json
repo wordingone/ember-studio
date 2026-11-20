@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ember_marks (the annotation object on an Agent session message)",
+  "description": "There is no file format called a mark. The nearest thing the program writes is the `ember_marks` object that the lab attaches to a message of an Agent session record. This schema describes that object only. Every member is optional and appears only when it applies. The marks are never sent to the model. See mark.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "skill": { "type": "string", "minLength": 1, "description": "On a tool result: the skill the call activated." },
+    "skills": {
+      "type": "array",
+      "description": "On a compaction wrapper: the skills that were active when the history was compacted.",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "approval": {
+      "type": "object",
+      "description": "On a tool result: what the approval gate ruled on the call.",
+      "required": ["layer", "decision", "reason", "review_ms"],
+      "additionalProperties": false,
+      "properties": {
+        "layer": { "type": "integer", "minimum": 0, "maximum": 255 },
+        "decision": { "type": "string" },
+        "reason": { "type": "string" },
+        "review_ms": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "hook_block": {
+      "type": "object",
+      "description": "On a tool result: a hook refused the call.",
+      "required": ["hook", "message"],
+      "additionalProperties": false,
+      "properties": { "hook": { "type": "string" }, "message": { "type": "string" } }
+    },
+    "ctx_tokens": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "On an assistant message: the context size the model server counted for that round (its prompt plus its answer, less the thinking tokens that the next request leaves out)."
+    },
+    "ms_prompt_read": { "type": ["integer", "null"], "minimum": 0, "description": "On an assistant message: milliseconds the server took to read the prompt; null when the server reported no progress." },
+    "ms_first_token": { "type": ["integer", "null"], "minimum": 0, "description": "On an assistant message: milliseconds to the first token the server generated; null when none was seen." }
+  }
+}

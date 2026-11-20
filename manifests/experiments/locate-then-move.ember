@@ -1,0 +1,61 @@
+{
+  "schema": "ember-research/1",
+  "title": "locate-then-move",
+  "question": "Where do two models differ, and does moving that part of one model into the other change the score on a held-out set?",
+  "created_utc": "2026-01-01T00:00:00Z",
+  "hypotheses": [
+    {
+      "id": "H1",
+      "text": "The difference is concentrated in a small share of the layers.",
+      "status_word": "open"
+    },
+    {
+      "id": "H2",
+      "text": "Moving only those layers closes part of the score gap.",
+      "status_word": "open"
+    }
+  ],
+  "models": [
+    {
+      "role": "donor",
+      "name": "example-donor",
+      "path": "/models/example-donor",
+      "sha256": "",
+      "licence_row": "licence of the donor, as its model card states it"
+    },
+    {
+      "role": "recipient",
+      "name": "example-recipient",
+      "path": "/models/example-recipient",
+      "sha256": "",
+      "licence_row": "licence of the recipient, as its model card states it"
+    }
+  ],
+  "experiments": [
+    {
+      "id": "e1",
+      "title": "Locate the difference",
+      "kind": "LOCATE",
+      "spec_path": "specs/e1-locate.md",
+      "spec_sha256": "",
+      "bar_path": "specs/e1-locate.md#bar",
+      "bar_sha256": "",
+      "lab_job_ids": [],
+      "result_words": [],
+      "ruling_path": ""
+    },
+    {
+      "id": "e2",
+      "title": "Move the located layers",
+      "kind": "MOVE",
+      "spec_path": "specs/e2-move.md",
+      "spec_sha256": "",
+      "bar_path": "specs/e2-move.md#bar",
+      "bar_sha256": "",
+      "lab_job_ids": [],
+      "result_words": [],
+      "ruling_path": ""
+    }
+  ],
+  "receipts": []
+}

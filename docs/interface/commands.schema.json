@@ -1,0 +1,1992 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Lab request (JSON-RPC 2.0, one line)",
+  "description": "A request line for the lab's pipe. `method` is one of the 40 verbs; `params` is checked per verb. The streaming verb agent_live_stream is also accepted.",
+  "type": "object",
+  "required": [
+    "jsonrpc",
+    "method"
+  ],
+  "properties": {
+    "jsonrpc": {
+      "const": "2.0"
+    },
+    "id": {
+      "type": [
+        "integer",
+        "string",
+        "null"
+      ]
+    },
+    "method": {
+      "enum": [
+        "capabilities",
+        "ping",
+        "runtime_identity",
+        "wall_observation_snapshot",
+        "bind_identity",
+        "register_schedule_prediction",
+        "record_schedule_measurement",
+        "write_schedule_alarm_state",
+        "acquire_lease",
+        "dispatch_manifest",
+        "resource_guard_rearm",
+        "consume_verifier_dispatch_token",
+        "supervise_server_cycle",
+        "start_hour",
+        "check_hour",
+        "check_lab_job",
+        "start_lab_job",
+        "lab_job_status",
+        "job_events",
+        "list_jobs",
+        "job_state",
+        "stop_job",
+        "export_receipt",
+        "export_content_addressed_receipt",
+        "export_assessment_evidence",
+        "plan_outage",
+        "cancel_outages",
+        "job_exit_code",
+        "job_result",
+        "issue_run_certificate",
+        "record_launch_context",
+        "record_launch_artifact_refusal",
+        "storage_reconcile",
+        "paper_compile",
+        "paper_status",
+        "agent_turn_submit",
+        "agent_turn_stop",
+        "agent_turn_status",
+        "agent_turn_unqueue",
+        "shutdown",
+        "agent_live_stream"
+      ]
+    },
+    "params": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "capabilities"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "properties": {
+          "params": {
+            "type": "object",
+            "maxProperties": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "ping"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "properties": {
+          "params": {
+            "type": "object",
+            "maxProperties": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "runtime_identity"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "properties": {
+          "params": {
+            "type": "object",
+            "maxProperties": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "wall_observation_snapshot"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "after_vram_seq",
+              "after_disk_seq"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "after_vram_seq": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "after_disk_seq": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "bind_identity"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "job_id",
+              "path",
+              "sha256"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "job_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "path": {
+                "type": "string"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "register_schedule_prediction"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "job_id",
+              "artifact_class",
+              "predicted_duration_ms",
+              "predicted_tokens",
+              "predicted_program_completion_ms",
+              "absolute_deadline_ms"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "job_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "artifact_class": {
+                "enum": [
+                  "training",
+                  "capability-learning-curve",
+                  "cost-model",
+                  "compute-primitive"
+                ]
+              },
+              "predicted_duration_ms": {
+                "type": "integer",
+                "exclusiveMinimum": 0
+              },
+              "predicted_tokens": {
+                "type": "integer",
+                "exclusiveMinimum": 0
+              },
+              "predicted_program_completion_ms": {
+                "type": "integer",
+                "exclusiveMinimum": 0
+              },
+              "absolute_deadline_ms": {
+                "type": "integer",
+                "exclusiveMinimum": 0
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "record_schedule_measurement"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "job_id",
+              "measured_duration_ms",
+              "measured_tokens",
+              "outcome",
+              "receipt_sha256"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "job_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "measured_duration_ms": {
+                "type": "integer",
+                "exclusiveMinimum": 0
+              },
+              "measured_tokens": {
+                "type": "integer",
+                "exclusiveMinimum": 0
+              },
+              "outcome": {
+                "enum": [
+                  "COMPLETED",
+                  "FAILED",
+                  "ABORTED"
+                ]
+              },
+              "receipt_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "write_schedule_alarm_state"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "path"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "path": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "acquire_lease"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "resource",
+              "job_id"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "resource": {
+                "type": "string"
+              },
+              "job_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "dispatch_manifest"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "manifest_utf8",
+              "manifest_sha256"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "manifest_utf8": {
+                "type": "string",
+                "maxLength": 30000
+              },
+              "manifest_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "resource_guard_rearm"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "frozen_observation_sha256",
+              "breach_class",
+              "diagnostic_receipt_path",
+              "diagnostic_receipt_sha256"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "frozen_observation_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "breach_class": {
+                "type": "string"
+              },
+              "diagnostic_receipt_path": {
+                "type": "string"
+              },
+              "diagnostic_receipt_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "consume_verifier_dispatch_token"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "job_id",
+              "token"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "job_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "token": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "supervise_server_cycle"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "authority_path",
+              "authority_sha256",
+              "receipt_path",
+              "restore_manifest_path",
+              "serving_contract_path",
+              "serving_contract_sha256",
+              "required_headroom_bytes",
+              "now_ms"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "authority_path": {
+                "type": "string"
+              },
+              "authority_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "receipt_path": {
+                "type": "string"
+              },
+              "restore_manifest_path": {
+                "type": "string"
+              },
+              "serving_contract_path": {
+                "type": "string"
+              },
+              "serving_contract_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "required_headroom_bytes": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "now_ms": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "start_hour"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "script",
+              "sha256",
+              "log",
+              "env"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "hour",
+                  "learn",
+                  "dream"
+                ]
+              },
+              "script": {
+                "type": "string"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "log": {
+                "type": "string"
+              },
+              "cwd": {
+                "type": "string"
+              },
+              "bash": {
+                "type": "string"
+              },
+              "env": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "check_hour"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "script",
+              "sha256",
+              "log",
+              "env"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "hour",
+                  "learn",
+                  "dream"
+                ]
+              },
+              "script": {
+                "type": "string"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "log": {
+                "type": "string"
+              },
+              "cwd": {
+                "type": "string"
+              },
+              "bash": {
+                "type": "string"
+              },
+              "env": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "check_lab_job"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "oneOf": [
+              {
+                "type": "object",
+                "required": [
+                  "script",
+                  "sha256",
+                  "log",
+                  "env"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "hour",
+                      "learn",
+                      "dream"
+                    ]
+                  },
+                  "script": {
+                    "type": "string"
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "log": {
+                    "type": "string"
+                  },
+                  "cwd": {
+                    "type": "string"
+                  },
+                  "bash": {
+                    "type": "string"
+                  },
+                  "env": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    }
+                  },
+                  "method": {
+                    "enum": [
+                      "full",
+                      "lora",
+                      "qlora"
+                    ],
+                    "description": "learn only"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "kind",
+                  "checkpoint"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "const": "inspect"
+                  },
+                  "checkpoint": {
+                    "type": "string"
+                  },
+                  "parent": {
+                    "type": "string"
+                  },
+                  "grid": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 64
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "start_lab_job"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "oneOf": [
+              {
+                "type": "object",
+                "required": [
+                  "script",
+                  "sha256",
+                  "log",
+                  "env"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "hour",
+                      "learn",
+                      "dream"
+                    ]
+                  },
+                  "script": {
+                    "type": "string"
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "log": {
+                    "type": "string"
+                  },
+                  "cwd": {
+                    "type": "string"
+                  },
+                  "bash": {
+                    "type": "string"
+                  },
+                  "env": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    }
+                  },
+                  "method": {
+                    "enum": [
+                      "full",
+                      "lora",
+                      "qlora"
+                    ],
+                    "description": "learn only"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "kind",
+                  "checkpoint"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "const": "inspect"
+                  },
+                  "checkpoint": {
+                    "type": "string"
+                  },
+                  "parent": {
+                    "type": "string"
+                  },
+                  "grid": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 64
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "lab_job_status"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "job_id"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "job_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "job_events"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "job_id"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "job_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "after_seq": {
+                "type": "integer",
+                "minimum": 0,
+                "default": 0
+              },
+              "limit": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 1000,
+                "default": 200
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "list_jobs"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "properties": {
+          "params": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "limit": {
+                "type": "integer",
+                "default": 20,
+                "description": "clamped to 1..200"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "job_state"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "job_id"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "job_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "stop_job"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "job_id"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "job_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "export_receipt"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "job_id",
+              "path"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "job_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "path": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "export_content_addressed_receipt"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "job_id",
+              "directory"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "job_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "directory": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "export_assessment_evidence"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "job_id",
+              "directory"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "job_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "directory": {
+                "type": "string",
+                "description": "at most 4096 UTF-8 bytes"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "plan_outage"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "resource",
+              "starts_at_ms",
+              "ends_at_ms",
+              "reason"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "resource": {
+                "type": "string"
+              },
+              "starts_at_ms": {
+                "type": "integer"
+              },
+              "ends_at_ms": {
+                "type": "integer"
+              },
+              "reason": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "cancel_outages"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "resource"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "resource": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "job_exit_code"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "job_id"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "job_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "job_result"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "job_id"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "job_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "issue_run_certificate"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "certificate_json"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "certificate_json": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "record_launch_context"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "job_id",
+              "daemon_mode",
+              "daemon_pid"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "job_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "daemon_mode": {
+                "enum": [
+                  "existing",
+                  "owned_started"
+                ]
+              },
+              "daemon_pid": {
+                "type": "integer",
+                "exclusiveMinimum": 0
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "record_launch_artifact_refusal"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "job_id",
+              "evidence_locator"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "job_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "evidence_locator": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "storage_reconcile"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "repository_root",
+              "policy",
+              "declarations",
+              "models_root",
+              "state_root",
+              "custody",
+              "pin_set_sha256",
+              "current_master",
+              "projected_growth",
+              "operation"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "repository_root": {
+                "type": "string"
+              },
+              "policy": {
+                "type": "string"
+              },
+              "declarations": {
+                "type": "string"
+              },
+              "models_root": {
+                "type": "string"
+              },
+              "state_root": {
+                "type": "string"
+              },
+              "custody": {
+                "type": "string"
+              },
+              "pin_set_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "current_master": {
+                "type": "string"
+              },
+              "projected_growth": {
+                "type": "object",
+                "properties": {
+                  "models": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "state": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                }
+              },
+              "operation": {
+                "enum": [
+                  "dry-run",
+                  "commit",
+                  "resume",
+                  "rollback"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "paper_compile"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "source"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "source": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "paper_status"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "source"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "source": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "agent_turn_submit"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "session",
+              "text",
+              "mode",
+              "cwd"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "session": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              },
+              "mode": {
+                "type": "string"
+              },
+              "cwd": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "agent_turn_stop"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "session"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "session": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "agent_turn_status"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "session"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "session": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "agent_turn_unqueue"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "session",
+              "id"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "session": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "shutdown"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "properties": {
+          "params": {
+            "type": "object",
+            "maxProperties": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "agent_live_stream"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "params"
+        ],
+        "properties": {
+          "params": {
+            "type": "object",
+            "required": [
+              "session"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "session": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "x-error-codes": {
+    "-32700": "parse_error",
+    "-32600": "invalid_request",
+    "-32601": "method_not_found",
+    "-32602": "invalid_params",
+    "-32000": "operation_failed",
+    "-32001": "hour_refused_or_foreign_user",
+    "-32002": "turn_refused"
+  },
+  "x-job-states": [
+    "starting",
+    "prepared",
+    "running",
+    "stopping",
+    "orphaned",
+    "identity_conflict",
+    "stopped",
+    "exited",
+    "failed"
+  ],
+  "x-refusals": {
+    "fallback_rc": 99,
+    "hour": {
+      "hour_path_relative": 20,
+      "hour_script_name": 21,
+      "hour_script_missing": 22,
+      "hour_sha_malformed": 23,
+      "hour_sha_mismatch": 24,
+      "hour_log_exists": 25,
+      "hour_log_unwritable": 26,
+      "hour_bash_refused": 27,
+      "hour_env_ember_key": 28,
+      "hour_env_invalid": 29,
+      "hour_child_priority": 30,
+      "hour_child_affinity": 31,
+      "hour_lease_conflict": 32,
+      "hour_receipt_exists": 33,
+      "hour_receipt_write": 34,
+      "hour_spawn_failed": 35,
+      "hour_cwd_invalid": 36,
+      "hour_kind_unknown": 37
+    },
+    "inspect": {
+      "inspect_path_relative": 40,
+      "inspect_checkpoint_missing": 41,
+      "inspect_checkpoint_format": 42,
+      "inspect_checkpoint_incomplete": 43,
+      "inspect_checkpoint_in_flux": 44,
+      "inspect_parent_same": 45,
+      "inspect_parent_no_overlap": 46,
+      "inspect_grid_invalid": 47,
+      "inspect_worker_missing": 48,
+      "inspect_lease_conflict": 49,
+      "inspect_receipt_write": 50,
+      "inspect_spawn_failed": 51,
+      "inspect_checkpoint_changed": 52,
+      "inspect_read_failed": 53,
+      "inspect_result_write": 54,
+      "inspect_cancelled": 55,
+      "inspect_cpu_placement": 56
+    },
+    "lab": {
+      "lab_kind_not_built": 38,
+      "lab_request_invalid": 39,
+      "lab_pretrain_off": 120,
+      "lab_method_unknown": 121
+    },
+    "press": {
+      "press_not_listed": 100,
+      "press_line_malformed": 101,
+      "press_bar_changed": 102,
+      "press_predictions_changed": 103,
+      "press_duplicate": 104,
+      "press_id_invalid": 105,
+      "press_approved_missing": 106,
+      "press_job_not_found": 107,
+      "press_state_unwritable": 108,
+      "press_cancel_refused": 109,
+      "press_checker_refused": 110,
+      "press_checker_unavailable": 111,
+      "press_minutes_unknown": 112,
+      "press_over_minutes": 113,
+      "press_queue_full": 114
+    }
+  },
+  "x-studio-verbs": [
+    {
+      "usage": "ember-studio press --script P --sha256 H --log L [--kind hour|learn] [--check] [--json]",
+      "does": "Ask ember-lab to start an hour or a learn job. `--check` runs only the preflight.",
+      "exit_codes": {
+        "0": "started",
+        "2": "refused",
+        "3": "bad arguments",
+        "4": "failed"
+      }
+    },
+    {
+      "usage": "ember-studio status [--job ID] [--log L | --set-dir D] [--json]",
+      "does": "The lab's state of a job and what its log says, in words.",
+      "exit_codes": {
+        "0": "read",
+        "2": "nothing to read"
+      }
+    },
+    {
+      "usage": "ember-studio stop [--job ID] [--yes] [--json]",
+      "does": "Ask the lab to stop a job.",
+      "exit_codes": {
+        "0": "ended",
+        "2": "refused",
+        "4": "failed",
+        "6": "not confirmed",
+        "7": "not ended"
+      }
+    },
+    {
+      "usage": "ember-studio ui-tree --live",
+      "does": "Read the RUNNING window's tab (through the instance pipe: no focus, no restore, no UI Automation). One line: `{\"live\":true,\"pid\":N,\"tab\":SLUG,\"frame\":N,\"age_ms\":N}`; `age_ms` is how old the last drawn frame is. Plain `ui-tree` never reports the running window.",
+      "exit_codes": {
+        "0": "ok",
+        "1": "no Studio running"
+      }
+    },
+    {
+      "usage": "ember-studio ui-tree [--json] [--mode SLUG] [--agent-stub SCENARIO]",
+      "does": "Draw the window offscreen and print every control: name, role, value, disabled. It does not read the running window; it draws a fresh one.",
+      "exit_codes": {
+        "0": "ok",
+        "3": "bad arguments"
+      }
+    },
+    {
+      "usage": "ember-studio ui-sweep [--json]",
+      "does": "Operate every control offscreen and list the ones that do nothing.",
+      "exit_codes": {
+        "0": "no dead control, non-zero otherwise (the report lists each)"
+      }
+    },
+    {
+      "usage": "ember-studio monitor --headless --json",
+      "does": "One snapshot of the hour telemetry as JSON.",
+      "exit_codes": {
+        "0": "ok",
+        "2": "no source",
+        "3": "bad arguments"
+      }
+    },
+    {
+      "usage": "ember-studio monitor --render-png FILE [--size WxH] [--mode SLUG] [--select KEY] ...",
+      "does": "Draw the real UI offscreen and write a PNG plus a JSON render receipt on stdout.",
+      "exit_codes": {
+        "0": "ok",
+        "3": "bad arguments",
+        "4": "render failed"
+      }
+    },
+    {
+      "usage": "ember-studio windows [--pid N]",
+      "does": "The visible top-level windows of the running Studio.",
+      "exit_codes": {
+        "0": "exactly one visible window (the main window)"
+      }
+    },
+    {
+      "usage": "ember-studio selftest-repaint [--seconds N]",
+      "does": "Draw frames with no input and prove the on-screen clock moves.",
+      "exit_codes": {
+        "0": "pass",
+        "1": "fail",
+        "3": "bad arguments"
+      }
+    }
+  ],
+  "x-studio-window-flags": [
+    "--act NAME",
+    "--read-tab",
+    "--act-set NAME VALUE",
+    "--act-clear NAME"
+  ],
+  "x-act-set-names": [
+    "agent.input",
+    "agent.folder",
+    "agent.dock.input",
+    "agent.newcmd.name",
+    "agent.newcmd.description",
+    "agent.newcmd.args",
+    "agent.newcmd.template",
+    "press.script",
+    "press.sha256",
+    "press.log",
+    "train.method",
+    "research.project.folder",
+    "research.project.name",
+    "research.project.open_path",
+    "research.project.title",
+    "research.project.question",
+    "research.project.experiment.title",
+    "research.project.experiment.kind",
+    "research.project.experiment.spec_path",
+    "research.project.experiment.bar_path",
+    "research.project.hypothesis.text",
+    "research.project.model.role",
+    "research.project.model.name",
+    "research.project.model.path"
+  ],
+  "x-ui-tree-json": {
+    "items": {
+      "additionalProperties": false,
+      "properties": {
+        "disabled": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "Button",
+            "TabItem",
+            "CheckBox",
+            "TextInput",
+            "MultilineTextInput",
+            "Caption",
+            "Image",
+            "ListItem"
+          ]
+        },
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "role",
+        "value",
+        "disabled"
+      ],
+      "type": "object"
+    },
+    "type": "array"
+  }
+}

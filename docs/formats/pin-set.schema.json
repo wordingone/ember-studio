@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pin set (the storage declarations file)",
+  "description": "A JSON array of declarations, one per file the operator names in the storage census. The sha256 of the file's raw bytes is the pin-set hash that `storage_reconcile` must be given and re-checks. See pin-set.md.",
+  "type": "array",
+  "items": { "$ref": "#/$defs/declaration" },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "relative_path": {
+      "type": "string",
+      "description": "A path relative to the class root, written with forward slashes: not empty, no backslash, not absolute, no `.` or `..` component. The program also refuses a drive-prefixed path.",
+      "pattern": "^(?![A-Za-z]:)(?!.*\\\\)(?!(.*/)?\\.{1,2}(/|$))[^/]+(/[^/]+)*$"
+    },
+    "physical_identity": {
+      "type": "string",
+      "description": "The operating system's identity of the file's storage: `windows:<8 lowercase hex>:<16 lowercase hex>` or `unix:<device digits>:<inode digits>`.",
+      "pattern": "^(windows:[0-9a-f]{8}:[0-9a-f]{16}|unix:[0-9]+:[0-9]+)$"
+    },
+    "checkpoint": {
+      "type": "object",
+      "required": ["series", "sequence"],
+      "additionalProperties": false,
+      "properties": {
+        "series": { "type": "string", "pattern": "\\S" },
+        "sequence": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "duplicate_witness": {
+      "type": "object",
+      "required": ["retained_relative_path", "retained_raw_sha256", "retained_physical_identity", "authority_identity", "independently_reopened"],
+      "additionalProperties": false,
+      "properties": {
+        "retained_relative_path": { "$ref": "#/$defs/relative_path" },
+        "retained_raw_sha256": { "$ref": "#/$defs/sha256" },
+        "retained_physical_identity": { "$ref": "#/$defs/physical_identity" },
+        "authority_identity": { "type": "string", "pattern": "\\S" },
+        "independently_reopened": { "const": true }
+      }
+    },
+    "terminal_kernel_witness": {
+      "type": "object",
+      "required": ["retained_relative_path", "retained_raw_sha256", "receipt_identity", "independently_reopened"],
+      "additionalProperties": false,
+      "properties": {
+        "retained_relative_path": { "$ref": "#/$defs/relative_path" },
+        "retained_raw_sha256": { "$ref": "#/$defs/sha256" },
+        "receipt_identity": { "type": "string", "pattern": "\\S" },
+        "independently_reopened": { "const": true }
+      }
+    },
+    "declaration": {
+      "type": "object",
+      "required": ["class", "relative_path", "disposition", "pin_reasons"],
+      "additionalProperties": false,
+      "properties": {
+        "class": { "enum": ["models", "state"] },
+        "relative_path": { "$ref": "#/$defs/relative_path" },
+        "disposition": {
+          "enum": ["protected", "reproducible", "terminal_compressible", "duplicate_reclaimable", "unknown", "path_escape", "reparse_point", "hardlink_ambiguous"]
+        },
+        "pin_reasons": { "type": "array", "items": { "type": "string", "pattern": "\\S" } },
+        "checkpoint": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/checkpoint" }] },
+        "duplicate_witness": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/duplicate_witness" }] },
+        "terminal_kernel_witness": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/terminal_kernel_witness" }] }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "disposition": { "const": "duplicate_reclaimable" } } },
+          "then": { "required": ["duplicate_witness"], "properties": { "duplicate_witness": { "$ref": "#/$defs/duplicate_witness" } } },
+          "else": { "properties": { "duplicate_witness": { "type": "null" } } }
+        },
+        {
+          "if": { "properties": { "disposition": { "const": "terminal_compressible" } } },
+          "then": { "required": ["terminal_kernel_witness"], "properties": { "terminal_kernel_witness": { "$ref": "#/$defs/terminal_kernel_witness" } } },
+          "else": { "properties": { "terminal_kernel_witness": { "type": "null" } } }
+        },
+        {
+          "if": { "properties": { "class": { "const": "state" } } },
+          "then": { "properties": { "checkpoint": { "type": "null" } } }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "event": "refused",
+  "ts": "2026-01-01T00:00:00Z",
+  "script": "/work/hours/h9_dispatch_v1.sh",
+  "sha256": "b33109a2419fd8b35ae50a82eaade67f6c12f9958a771d7053f1a1bf6c5beedd",
+  "log": "/work/hours/h9.log",
+  "kind": "refused",
+  "refusal_code": "hour_lease_conflict",
+  "rc": 32,
+  "detail": "another hour chain holds the lease: hour-0123456789ab-89abcdef",
+  "reason": "another hour chain holds the lease",
+  "studio_version": "0.0.0-example"
+}

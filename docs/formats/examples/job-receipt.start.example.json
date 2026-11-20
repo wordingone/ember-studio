@@ -1,0 +1,23 @@
+{
+  "schema": "ember-lab-hour-start-v1",
+  "kind": "learn",
+  "job_id": "learn-e27b077b7759-48dfc823",
+  "attempt": 1,
+  "base_job_id": "learn-e27b077b7759-48dfc823",
+  "script": "/work/learn/learn_demo.sh",
+  "sha256": "e27b077b7759813dd3ed950703e17163d9e21754effff6a4b75e86ac8ef96544",
+  "log": "/work/learn/demo.log",
+  "bash": "/usr/bin/bash",
+  "cwd": "/work/learn",
+  "redirect": "example redirect text",
+  "env_key_count": 2,
+  "env_sha256": "2d7a6507a9d80a0493e2410bd705ae91a77bf91f53f8377df66a182365adf595",
+  "daemon_pid": 1234,
+  "daemon_priority_class": 32,
+  "daemon_affinity_mask": 255,
+  "daemon_system_mask": 255,
+  "intent_at_ms": 1700000000000,
+  "phase": "started",
+  "pid": 4242,
+  "started_at_ms": 1700000000900
+}

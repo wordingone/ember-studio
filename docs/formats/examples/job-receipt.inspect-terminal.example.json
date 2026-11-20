@@ -1,0 +1,12 @@
+{
+  "schema": "ember-lab-job-terminal-v1",
+  "kind": "inspect",
+  "job_id": "inspect-5aef96240bca-c7ce66d0",
+  "outcome": "published",
+  "result": {
+    "path": "/work/lab.logs/inspect-cache/5aef96240bca5582e6fd0468879a26863d81d1c1fb602def55926ef33ec8bb1f.json",
+    "sha256": "3cd4d4fb65b8f08e3b3782675a60fd777fafb8cc22811fa06bbd245cbda324b5",
+    "bytes": 20480
+  },
+  "finished_at_ms": 1700000042000
+}

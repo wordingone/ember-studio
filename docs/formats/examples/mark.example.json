@@ -1,0 +1,12 @@
+{
+  "approval": {
+    "layer": 1,
+    "decision": "allow",
+    "reason": "read-only command",
+    "review_ms": 0
+  },
+  "skill": "example-skill",
+  "ctx_tokens": 5120,
+  "ms_prompt_read": 840,
+  "ms_first_token": 1210
+}

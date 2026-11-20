@@ -1,6 +1,6 @@
 # 04 Evals
 
-How much better a donor is than its recipient on a benchmark, against a significance bar, and the older held-out score per training hour. The pair pictures were drawn by build `edb7d3ad` offscreen on made-up data (see [how the pictures were made](train.md#how-the-pictures-were-made)); the History picture and the recording are from `185b8abd`.
+How much better a donor is than its recipient on a benchmark, against a significance bar, and the older held-out score per training hour. The pair pictures were drawn by build `edb7d3ad` offscreen on made-up data (see [how the pictures were made](train.md#how-the-pictures-were-made)); the History picture and the recording are from `185b8abd`. Neither was redrawn on the current build, `de6494fe`; what changed since is listed under [Since these pictures](#since-these-pictures).
 
 ## What it shows
 
@@ -25,6 +25,15 @@ If no runs root is configured the page says so and gives the flag: `no transplan
 HISTORY switches to the older **held-out score per hour** chart: one dot per scored training hour of the previous Ember model, a frozen bar as a dashed line, orange dots for hours lower than their parent and red for higher, and the weakest hour ringed. The right panel shows the selected hour's score. It reads the receipts of the old 3B hours, which this guide did not redraw; the picture is from `185b8abd`.
 
 ![History: held-out score per hour](../media/evals-history.png)
+
+## Since these pictures
+
+Read from the program's manual and source for `de6494fe`; not drawn for this guide, because it needs run folders to draw from.
+
+- A pair whose run has no gap yet is drawn as a pending glyph, a dashed ring on the zero line, and the legend gains a `pending` entry. A pair is never dropped from the page.
+- The `compare` control in the pair's panel opens the pair's donor as A and its recipient as B in the Models tab, with the pair's delta map, when one is read, drawn as a band of difference marks (see [Models](models.md#compare)).
+- The History chart draws a run-to-run noise band only from a measured band file (`--band-file`, or `EMBER_STUDIO_NOISE_BAND`, a JSON file with `half_width_nats`, the half width in nats around the parent's value). Studio ships no band of its own: with no file, no band is drawn.
+- When the page holds no pair, the PAIR buttons are disabled with `this page has no transplant pairs to pick from: turn History off to see them`.
 
 ## Controls
 

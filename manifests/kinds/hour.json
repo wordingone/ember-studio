@@ -1,0 +1,148 @@
+{
+  "format": "ember-job-kind-manifest/1",
+  "kind": "hour",
+  "summary": "Runs one sha-pinned dispatch script as a lab job on the shared card.",
+  "lease_class": "card",
+  "lease_resource": "hour-chain",
+  "job_id_prefix": "hour",
+  "refusal_exit_codes": {
+    "min": 20,
+    "max": 37
+  },
+  "built": true,
+  "verbs": [
+    "check_lab_job",
+    "start_lab_job",
+    "check_hour",
+    "start_hour"
+  ],
+  "script_name_rule": "hNN_dispatch_vN.sh (h, digits, _dispatch_v, digits, .sh)",
+  "request": [
+    {
+      "name": "kind",
+      "type": "string",
+      "required": false,
+      "meaning": "The job kind. Left out, the lab reads `hour`."
+    },
+    {
+      "name": "script",
+      "type": "string (absolute path)",
+      "required": true,
+      "meaning": "The script to run. Its file name must follow the kind's script name rule."
+    },
+    {
+      "name": "sha256",
+      "type": "string (64 lowercase hex)",
+      "required": true,
+      "meaning": "The sha256 of the script's bytes. The lab refuses a script whose bytes hash to anything else."
+    },
+    {
+      "name": "log",
+      "type": "string (absolute path)",
+      "required": true,
+      "meaning": "The log file. It must not exist: one start per log path."
+    },
+    {
+      "name": "cwd",
+      "type": "string (absolute path)",
+      "required": false,
+      "meaning": "The job's working directory; it must exist. Left out, the lab's own."
+    },
+    {
+      "name": "bash",
+      "type": "string (absolute path)",
+      "required": false,
+      "meaning": "The shell that runs the script. Left out, the lab uses its default (Git bash on Windows)."
+    },
+    {
+      "name": "env",
+      "type": "object of strings",
+      "required": true,
+      "meaning": "The job's exact environment. A variable whose name begins with EMBER_ (any capitalisation) is refused."
+    }
+  ],
+  "writes": [
+    {
+      "path": "<log>",
+      "meaning": "The log; the lab creates it empty before the script starts."
+    },
+    {
+      "path": "<log>.lab-start.json",
+      "meaning": "The start receipt (ember-lab-hour-start-v1), written before the script starts and completed when it is running."
+    }
+  ],
+  "refusal_codes": [
+    {
+      "code": "hour_path_relative",
+      "rc": 20
+    },
+    {
+      "code": "hour_script_name",
+      "rc": 21
+    },
+    {
+      "code": "hour_script_missing",
+      "rc": 22
+    },
+    {
+      "code": "hour_sha_malformed",
+      "rc": 23
+    },
+    {
+      "code": "hour_sha_mismatch",
+      "rc": 24
+    },
+    {
+      "code": "hour_log_exists",
+      "rc": 25
+    },
+    {
+      "code": "hour_log_unwritable",
+      "rc": 26
+    },
+    {
+      "code": "hour_bash_refused",
+      "rc": 27
+    },
+    {
+      "code": "hour_env_ember_key",
+      "rc": 28
+    },
+    {
+      "code": "hour_env_invalid",
+      "rc": 29
+    },
+    {
+      "code": "hour_child_priority",
+      "rc": 30
+    },
+    {
+      "code": "hour_child_affinity",
+      "rc": 31
+    },
+    {
+      "code": "hour_lease_conflict",
+      "rc": 32
+    },
+    {
+      "code": "hour_receipt_exists",
+      "rc": 33
+    },
+    {
+      "code": "hour_receipt_write",
+      "rc": 34
+    },
+    {
+      "code": "hour_spawn_failed",
+      "rc": 35
+    },
+    {
+      "code": "hour_cwd_invalid",
+      "rc": 36
+    },
+    {
+      "code": "hour_kind_unknown",
+      "rc": 37
+    }
+  ]
+}

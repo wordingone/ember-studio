@@ -1,0 +1,49 @@
+{
+  "schema": "ember-lab-operational-receipt-v1",
+  "ember_lab_identity": {
+    "binary_sha256": "b7990c06c5b6af5f0aad83fd5476c1c49a45a2665c7f77e24c74520407be489f",
+    "source_sha256": "8af565bcf05641d866b436505412a25d19a25393a1ad8961d98ef3241a87e4fd"
+  },
+  "job_id": "hour-b33109a2419f-282c9dcf",
+  "identity_sha256": "b33109a2419fd8b35ae50a82eaade67f6c12f9958a771d7053f1a1bf6c5beedd",
+  "resource_lease": "hour-chain",
+  "state": "exited",
+  "pid": 4242,
+  "executable_identity": "example-executable-identity",
+  "restart_policy": "never",
+  "exit_code": 0,
+  "logs": {
+    "stdout": {
+      "file_name": "h9.stdout.log",
+      "sealed": true,
+      "sha256": "078788059a52438f7494f6fb370a2b73c5fd5fedeabfb57b6b519eb630d2ad10"
+    },
+    "stderr": {
+      "file_name": "h9.stderr.log",
+      "sealed": true,
+      "sha256": "96abe5f1bc2ffc6da852cdd8d6fe461439aefd6cce9ebe7bff96ee1dc6150c85"
+    }
+  },
+  "events": [
+    {
+      "seq": 1,
+      "ts_ms": 1700000000000,
+      "kind": "job_start_reserved",
+      "payload": {}
+    },
+    {
+      "seq": 2,
+      "ts_ms": 1700000000500,
+      "kind": "job_prepared",
+      "payload": {}
+    },
+    {
+      "seq": 3,
+      "ts_ms": 1700000001000,
+      "kind": "job_started",
+      "payload": {}
+    }
+  ],
+  "outage_events": [],
+  "scientific_capability_evidence": false
+}

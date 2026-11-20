@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Job kind manifest (a description of one lab job kind)",
+  "description": "A descriptive record of one job kind in the lab's kind table. The lab does not read this file: the table is compiled into the lab. The record is written from that table so that a person or an agent can read what a kind is without running the lab. See job-kind-manifest.md.",
+  "type": "object",
+  "required": ["format", "kind", "lease_class", "lease_resource", "job_id_prefix", "refusal_exit_codes", "built", "verbs", "request", "refusal_codes"],
+  "additionalProperties": false,
+  "properties": {
+    "format": { "const": "ember-job-kind-manifest/1" },
+    "kind": { "enum": ["hour", "learn", "dream", "inspect", "construct-check", "capture", "eval"] },
+    "summary": { "type": "string", "description": "One sentence, plain words." },
+    "lease_class": { "enum": ["card", "cpu"], "description": "`card`: takes the one shared-card lease, so one such job at a time. `cpu`: takes the separate cpu lease and never the card lease." },
+    "lease_resource": { "enum": ["hour-chain", "cpu-lane"] },
+    "job_id_prefix": { "type": "string", "minLength": 1, "description": "A job id starts with this word and a dash." },
+    "refusal_exit_codes": {
+      "type": "object",
+      "description": "The exit codes this kind's own refusals own; no other kind's refusals use them.",
+      "required": ["min", "max"],
+      "additionalProperties": false,
+      "properties": {
+        "min": { "type": "integer", "minimum": 0, "maximum": 255 },
+        "max": { "type": "integer", "minimum": 0, "maximum": 255 }
+      }
+    },
+    "built": { "type": "boolean", "description": "False: the kind is in the table and the lab answers `lab_kind_not_built` to a request for it." },
+    "verbs": {
+      "type": "array",
+      "description": "The lab verbs that take this kind (see docs/interface/commands.md).",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "script_name_rule": { "type": "string", "description": "For a kind that runs a script: the file name the script must have." },
+    "request": {
+      "type": "array",
+      "description": "The members of the request body, in the order the lab lists them.",
+      "items": {
+        "type": "object",
+        "required": ["name", "type", "required", "meaning"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "type": { "type": "string" },
+          "required": { "type": "boolean" },
+          "meaning": { "type": "string" }
+        }
+      }
+    },
+    "environment": {
+      "type": "array",
+      "description": "Variables the lab adds to the job's environment for this kind.",
+      "items": {
+        "type": "object",
+        "required": ["name", "meaning"],
+        "additionalProperties": false,
+        "properties": { "name": { "type": "string" }, "meaning": { "type": "string" } }
+      }
+    },
+    "writes": {
+      "type": "array",
+      "description": "Files the lab or the job writes for this kind.",
+      "items": {
+        "type": "object",
+        "required": ["path", "meaning"],
+        "additionalProperties": false,
+        "properties": { "path": { "type": "string" }, "meaning": { "type": "string" } }
+      }
+    },
+    "refusal_codes": {
+      "type": "array",
+      "description": "The refusal codes of this kind's own table, with their process exit codes. Refusals that belong to the verb for every kind are listed in docs/interface/commands.md.",
+      "items": {
+        "type": "object",
+        "required": ["code", "rc"],
+        "additionalProperties": false,
+        "properties": { "code": { "type": "string" }, "rc": { "type": "integer", "minimum": 0, "maximum": 255 } }
+      }
+    }
+  }
+}

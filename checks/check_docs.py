@@ -6,7 +6,7 @@
 (c) refusals: drive paths of a build machine, a session-link trailer, and the private
     repository's address (the product name "ember-lab" is fine; its repository path is not).
 
-Usage: python scripts/check_docs.py [repo_root]
+Usage: python checks/check_docs.py [repo_root]
 """
 import os
 import re
@@ -29,9 +29,9 @@ REFUSALS = [
 
 def doc_files(root):
     out = []
-    readme = os.path.join(root, "README.md")
-    if os.path.isfile(readme):
-        out.append(readme)
+    for f in sorted(os.listdir(root)):
+        if f.endswith(".md") and os.path.isfile(os.path.join(root, f)):
+            out.append(os.path.join(root, f))
     for base, _dirs, files in os.walk(os.path.join(root, "docs")):
         for f in files:
             if f.endswith(".md"):

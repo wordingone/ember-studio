@@ -1,0 +1,293 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Job receipt (every receipt shape the lab and Studio write for a job)",
+  "description": "One schema for the five record shapes described in job-receipt.md. A document is exactly one of them: the lab's operational receipt, the lab's start receipt, the lab's inspect intent receipt, the lab's inspect terminal receipt, or one row of Studio's press receipts (a JSON line). The first four carry a `schema` word; a press row carries an `event` word and no `schema`.",
+  "oneOf": [
+    { "$ref": "#/$defs/operational_receipt" },
+    { "$ref": "#/$defs/start_receipt" },
+    { "$ref": "#/$defs/inspect_intent_receipt" },
+    { "$ref": "#/$defs/inspect_terminal_receipt" },
+    { "$ref": "#/$defs/press_row" }
+  ],
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "nullable_text": { "type": ["string", "null"] },
+    "job_state": {
+      "enum": ["starting", "prepared", "running", "stopping", "orphaned", "identity_conflict", "stopped", "exited", "failed"]
+    },
+    "event_row": {
+      "type": "object",
+      "description": "One row of the lab's event log for the job. `kind` names the event; `payload` is a JSON value whose shape depends on the kind.",
+      "required": ["seq", "ts_ms", "kind", "payload"],
+      "additionalProperties": false,
+      "properties": {
+        "seq": { "type": "integer" },
+        "ts_ms": { "type": "integer" },
+        "kind": { "type": "string" },
+        "payload": {}
+      }
+    },
+    "log_evidence": {
+      "type": "object",
+      "required": ["file_name", "sealed", "sha256"],
+      "additionalProperties": false,
+      "properties": {
+        "file_name": { "type": ["string", "null"] },
+        "sealed": { "type": "boolean" },
+        "sha256": { "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] }
+      }
+    },
+    "operational_receipt": {
+      "type": "object",
+      "required": [
+        "schema", "ember_lab_identity", "job_id", "identity_sha256", "resource_lease", "state", "pid",
+        "executable_identity", "restart_policy", "exit_code", "logs", "events", "outage_events",
+        "scientific_capability_evidence"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema": { "const": "ember-lab-operational-receipt-v1" },
+        "ember_lab_identity": {
+          "type": "object",
+          "required": ["binary_sha256", "source_sha256"],
+          "additionalProperties": false,
+          "properties": {
+            "binary_sha256": { "$ref": "#/$defs/sha256" },
+            "source_sha256": { "type": "string" }
+          }
+        },
+        "job_id": { "type": "string", "minLength": 1 },
+        "identity_sha256": { "$ref": "#/$defs/sha256" },
+        "resource_lease": { "type": "string", "minLength": 1 },
+        "state": { "$ref": "#/$defs/job_state" },
+        "pid": { "type": "integer" },
+        "executable_identity": { "type": "string" },
+        "restart_policy": { "const": "never" },
+        "exit_code": { "type": ["integer", "null"] },
+        "logs": {
+          "type": "object",
+          "required": ["stdout", "stderr"],
+          "additionalProperties": false,
+          "properties": {
+            "stdout": { "$ref": "#/$defs/log_evidence" },
+            "stderr": { "$ref": "#/$defs/log_evidence" }
+          }
+        },
+        "events": { "type": "array", "items": { "$ref": "#/$defs/event_row" } },
+        "outage_events": { "type": "array", "items": { "$ref": "#/$defs/event_row" } },
+        "scientific_capability_evidence": { "const": false }
+      }
+    },
+    "start_receipt": {
+      "type": "object",
+      "required": [
+        "schema", "kind", "job_id", "attempt", "base_job_id", "script", "sha256", "log", "bash", "cwd",
+        "redirect", "env_key_count", "env_sha256", "daemon_pid", "daemon_priority_class",
+        "daemon_affinity_mask", "daemon_system_mask", "intent_at_ms", "phase"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema": { "const": "ember-lab-hour-start-v1" },
+        "kind": { "enum": ["hour", "learn", "dream"] },
+        "job_id": { "type": "string", "minLength": 1 },
+        "attempt": { "type": "integer", "minimum": 1 },
+        "base_job_id": { "type": "string", "minLength": 1 },
+        "script": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "log": { "type": "string", "minLength": 1 },
+        "bash": { "type": "string", "minLength": 1 },
+        "cwd": { "type": ["string", "null"] },
+        "redirect": { "type": "string" },
+        "env_key_count": { "type": "integer", "minimum": 0 },
+        "env_sha256": { "$ref": "#/$defs/sha256" },
+        "daemon_pid": { "type": "integer" },
+        "daemon_priority_class": { "type": "integer" },
+        "daemon_affinity_mask": { "type": "integer" },
+        "daemon_system_mask": { "type": "integer" },
+        "intent_at_ms": { "type": "integer" },
+        "phase": { "enum": ["intent", "started"] },
+        "pid": { "type": "integer" },
+        "started_at_ms": { "type": "integer" },
+        "start_tail_error": { "type": "string" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "phase": { "const": "started" } } },
+          "then": { "required": ["pid", "started_at_ms"] },
+          "else": { "not": { "anyOf": [{ "required": ["pid"] }, { "required": ["started_at_ms"] }, { "required": ["start_tail_error"] }] } }
+        }
+      ]
+    },
+    "inspect_intent_receipt": {
+      "type": "object",
+      "required": [
+        "schema", "kind", "job_id", "fingerprint", "class", "lease", "cache_hit", "daemon_pid", "worker",
+        "cpu_mask_policy", "cpu_class_mask", "inspect_background", "result_path", "request", "intent_at_ms"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema": { "const": "ember-lab-job-intent-v1" },
+        "kind": { "const": "inspect" },
+        "job_id": { "type": "string", "minLength": 1 },
+        "fingerprint": { "type": "string", "minLength": 1 },
+        "class": { "const": "cpu" },
+        "lease": { "const": "cpu-lane" },
+        "cache_hit": { "type": "boolean" },
+        "daemon_pid": { "type": "integer" },
+        "worker": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "required": ["path", "sha256"],
+              "additionalProperties": false,
+              "properties": { "path": { "type": "string" }, "sha256": { "$ref": "#/$defs/sha256" } }
+            }
+          ]
+        },
+        "cpu_mask_policy": { "enum": ["configured", "inherit"] },
+        "cpu_class_mask": { "type": ["integer", "null"] },
+        "inspect_background": { "type": "boolean" },
+        "result_path": { "type": "string" },
+        "request": {
+          "type": "object",
+          "required": ["kind", "checkpoint", "parent", "grid"],
+          "additionalProperties": false,
+          "properties": {
+            "kind": { "const": "inspect" },
+            "checkpoint": { "type": "string" },
+            "parent": { "type": ["string", "null"] },
+            "grid": { "type": ["integer", "null"], "minimum": 1, "maximum": 64 }
+          }
+        },
+        "intent_at_ms": { "type": "integer" }
+      }
+    },
+    "inspect_terminal_receipt": {
+      "type": "object",
+      "required": ["schema", "kind", "job_id", "outcome", "finished_at_ms"],
+      "additionalProperties": false,
+      "properties": {
+        "schema": { "const": "ember-lab-job-terminal-v1" },
+        "kind": { "type": "string", "minLength": 1 },
+        "job_id": { "type": "string", "minLength": 1 },
+        "outcome": { "enum": ["published", "cache_hit", "failed", "killed_or_crashed"] },
+        "result": {
+          "type": "object",
+          "required": ["path", "sha256", "bytes"],
+          "additionalProperties": false,
+          "properties": {
+            "path": { "type": "string" },
+            "sha256": { "$ref": "#/$defs/sha256" },
+            "bytes": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "code": { "type": "string" },
+        "rc": { "type": "integer", "minimum": 0, "maximum": 255 },
+        "detail": { "type": "string" },
+        "synthesized": { "const": true },
+        "finished_at_ms": { "type": "integer" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "outcome": { "enum": ["published", "cache_hit"] } } },
+          "then": { "required": ["result"], "not": { "anyOf": [{ "required": ["code"] }, { "required": ["rc"] }, { "required": ["detail"] }] } },
+          "else": { "required": ["code", "rc", "detail"], "not": { "required": ["result"] } }
+        }
+      ]
+    },
+    "press_row": {
+      "description": "One JSON line of Studio's press receipts. `event` selects the row shape.",
+      "oneOf": [
+        { "$ref": "#/$defs/press_pressing" },
+        { "$ref": "#/$defs/press_started" },
+        { "$ref": "#/$defs/press_refused" },
+        { "$ref": "#/$defs/press_stop_requested" },
+        { "$ref": "#/$defs/press_stopped" }
+      ]
+    },
+    "press_pressing": {
+      "type": "object",
+      "required": ["event", "ts", "job_kind", "script", "sha256", "log", "cwd", "bash", "env_keys", "pipe", "studio_version"],
+      "additionalProperties": false,
+      "properties": {
+        "event": { "const": "pressing" },
+        "ts": { "type": "string" },
+        "job_kind": { "enum": ["hour", "learn"] },
+        "script": { "type": "string" },
+        "sha256": { "type": "string" },
+        "log": { "type": "string" },
+        "cwd": { "type": ["string", "null"] },
+        "bash": { "type": ["string", "null"] },
+        "env_keys": { "type": "integer", "minimum": 0 },
+        "pipe": { "type": "string" },
+        "studio_version": { "type": "string" }
+      }
+    },
+    "press_started": {
+      "type": "object",
+      "required": ["event", "ts", "job_kind", "job_id", "pid", "script", "sha256", "log", "lab_receipt", "bash", "cwd", "pipe", "studio_version"],
+      "additionalProperties": false,
+      "properties": {
+        "event": { "const": "started" },
+        "ts": { "type": "string" },
+        "job_kind": { "enum": ["hour", "learn"] },
+        "job_id": { "type": "string", "minLength": 1 },
+        "pid": { "type": "integer" },
+        "script": { "type": "string" },
+        "sha256": { "type": "string" },
+        "log": { "type": "string" },
+        "lab_receipt": { "type": "string" },
+        "bash": { "type": ["string", "null"] },
+        "cwd": { "type": ["string", "null"] },
+        "pipe": { "type": "string" },
+        "studio_version": { "type": "string" }
+      }
+    },
+    "press_refused": {
+      "type": "object",
+      "required": ["event", "ts", "script", "sha256", "log", "kind", "refusal_code", "rc", "detail", "reason", "studio_version"],
+      "additionalProperties": false,
+      "properties": {
+        "event": { "const": "refused" },
+        "ts": { "type": "string" },
+        "script": { "type": "string" },
+        "sha256": { "type": "string" },
+        "log": { "type": "string" },
+        "kind": { "enum": ["refused", "unreachable", "no_reply", "bad_pipe_name", "too_large", "protocol", "rpc_error", "studio"] },
+        "refusal_code": { "type": ["string", "null"] },
+        "rc": { "type": ["integer", "null"] },
+        "detail": { "type": ["string", "null"] },
+        "reason": { "type": "string" },
+        "reasons": { "type": "array", "items": { "type": "string" } },
+        "studio_version": { "type": "string" }
+      }
+    },
+    "press_stop_requested": {
+      "type": "object",
+      "required": ["event", "ts", "job_id", "pipe", "studio_version"],
+      "additionalProperties": false,
+      "properties": {
+        "event": { "const": "stop_requested" },
+        "ts": { "type": "string" },
+        "job_id": { "type": "string" },
+        "pipe": { "type": "string" },
+        "studio_version": { "type": "string" }
+      }
+    },
+    "press_stopped": {
+      "type": "object",
+      "required": ["event", "ts", "job_id", "accepted", "state", "exit_code", "studio_version"],
+      "additionalProperties": false,
+      "properties": {
+        "event": { "const": "stopped" },
+        "ts": { "type": "string" },
+        "job_id": { "type": "string" },
+        "accepted": { "type": "boolean" },
+        "state": { "type": ["string", "null"] },
+        "exit_code": { "type": ["integer", "null"] },
+        "studio_version": { "type": "string" }
+      }
+    }
+  }
+}

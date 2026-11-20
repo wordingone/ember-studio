@@ -1,0 +1,42 @@
+[
+  {
+    "class": "models",
+    "relative_path": "run1/step-000200/model.bin",
+    "disposition": "protected",
+    "pin_reasons": [
+      "active run checkpoint"
+    ],
+    "checkpoint": {
+      "series": "run1",
+      "sequence": 200
+    },
+    "duplicate_witness": null,
+    "terminal_kernel_witness": null
+  },
+  {
+    "class": "models",
+    "relative_path": "backup/model-copy.bin",
+    "disposition": "duplicate_reclaimable",
+    "pin_reasons": [],
+    "checkpoint": null,
+    "duplicate_witness": {
+      "retained_relative_path": "run1/step-000200/model.bin",
+      "retained_raw_sha256": "c19c932b8a38d62be556a3e395cbffe6cef37c1dfbce2a4c43bbf23511b4fb02",
+      "retained_physical_identity": "windows:0000abcd:0000000000001234",
+      "authority_identity": "example-authority",
+      "independently_reopened": true
+    },
+    "terminal_kernel_witness": null
+  },
+  {
+    "class": "state",
+    "relative_path": "notes/keep.txt",
+    "disposition": "protected",
+    "pin_reasons": [
+      "kept by the operator"
+    ],
+    "checkpoint": null,
+    "duplicate_witness": null,
+    "terminal_kernel_witness": null
+  }
+]

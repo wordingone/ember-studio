@@ -1,24 +1,24 @@
 # Platforms: what exists, what blocks the rest
 
-Measured on 2026-11-15 against commit `185b8abd` of the private source repository.
+The Windows, WSL and Linux measurements below were made on 2026-11-15 against commit `185b8abd` of the private source repository. Since then the source was reorganised into 16 packages and the lab's folders became settings; those measurements were **not re-run** on the current build (`de6494fe`), because that needs a compile. The source counts under Linux were re-counted on the current tree.
 
 ## Windows (available)
 
-Built on Windows 11 from a clean checkout of that commit, with the dependencies the lock file names, offline, four compile jobs at below-normal priority. The program's Windows subsystem is GUI (no console window). The exe was started with `ui-tree` and its output matched the build the documentation was written against, line for line apart from a timestamp.
+Built on Windows 11 from a clean checkout of that commit, with the dependencies the lock file names, offline, four compile jobs at below-normal priority. The program's Windows subsystem is GUI (no console window). The exe was started with `ui-tree` and its output matched the build the documentation was written against, line for line apart from a timestamp. On the current build the same exe, `ember-studio.exe`, was run offscreen (`ui-tree`, `ui-sweep`, `monitor --render-png`) for the guides; the build is produced by the repository's build command, which maps the build machine's folder names out of the program and scans the finished programs for any that remain.
 
 ## Linux (not available: it compiles, the tests do not)
 
-**Result: no Linux download exists, and none will be published until the tests pass.** What was measured on 2026-11-15, in WSL (Ubuntu, Rust stable), from a `git archive` of the same committed tree:
+**Result: no Linux download exists, and none will be published until the tests pass.** What was measured on 2026-11-15 on `185b8abd`, in WSL (Ubuntu, Rust stable), from a `git archive` of the same committed tree:
 
 - **Compiles.** The locked dependencies were fetched from crates.io at the versions and checksums in the lock file, and `cargo build --release --locked` finished in about two minutes with four jobs. No system package was needed to compile. The result is a 25 MB dynamically linked x86-64 ELF program. Disk used inside WSL: about 0.85 GB of build output and 0.58 GB of downloaded crates.
 - **Draws.** `ui-tree` prints the control names, and `monitor --render-png` draws the Library, Models and Train tabs offscreen. A real window opened and drew the Agent tab under a virtual display (Xvfb). The windows were never shown on a desktop.
 - **Says what it is.** The Train tab's context line reads `unsupported-platform` and its body reads `lab not answering`. The Agent tab, on first draw, showed `error: ember-lab agent state could not start: No such file or directory`, because no lab program exists there.
-- **Tests do not build.** `cargo test --release --locked` stops with two compile errors: test code uses the Windows-only `std::os::windows` exit-status API. Until the test code is made portable and the tests pass, a Linux build is not released.
+- **Tests did not build** on `185b8abd`. `cargo test --release --locked` stopped with two compile errors: test code uses the Windows-only `std::os::windows` exit-status API. Not re-measured on the current tree, so whether they build now is not verified. Until the tests pass on Linux, a Linux build is not released.
 - **Not checked:** a Linux session with a real desktop (X11 or Wayland), mouse and keyboard use, the ember-cli panel, and the lab client on Linux. The program was never run against a lab.
 
-What a complete Linux port still involves, read from the committed tree: 31 `cfg(windows)` sites in 13 source files and 15 `cfg(not(windows))` or `cfg(unix)` sites, mostly stubs. The lab client speaks a Windows named pipe, so it needs a Unix socket transport; the embedded ember-cli panel is a Windows pseudoconsole host; the single-window rule uses a Windows named mutex. These are why the platform line says `unsupported-platform`. A Linux Studio also needs a Linux ember-lab: the lab daemon has about 270 `cfg(windows)` sites (card lock, fixed paths, named pipe), and porting them is the larger half of the cure. It is queued after the folder settings; no date is promised.
+What a complete Linux port still involves, counted on the current tree (a text search for the attribute, so a rough size and not a measure of work): Studio and the code it shares have 50 `cfg(windows)` sites in 25 source files and 29 `cfg(not(windows))` or `cfg(unix)` sites, mostly stubs. The lab client speaks a Windows named pipe, so it needs a Unix socket transport; the embedded ember-cli panel is a Windows pseudoconsole host; the single-window rule uses a Windows named mutex. These are why the platform line says `unsupported-platform`. A Linux Studio also needs a Linux ember-lab: the lab daemon has 353 `cfg(windows)` sites in 36 source files (card lock, named pipe, job objects) against 61 `cfg(not(windows))` or `cfg(unix)` sites, and porting them is the larger half of the cure. The lab's folders are already settings, so they are no longer part of that work. No date is promised.
 
-**Next steps:** make the two test sites portable and run the tests; test the window on a real Linux desktop; add a Unix socket for the lab client; port the lab's Windows-only parts.
+**Next steps:** run the tests on Linux and make the test code portable where they fail; test the window on a real Linux desktop; add a Unix socket for the lab client; port the lab's Windows-only parts.
 
 ## macOS (not available)
 
@@ -44,6 +44,6 @@ Cures, cheapest first:
 
 | OS | Today | First step |
 | --- | --- | --- |
-| Windows | build edb7d3ad, x64 | release it |
-| Linux | none; compiles and draws in WSL, tests do not build | make the test code portable, then test on a real Linux desktop |
+| Windows | build de6494fe, x64; no release published | publish a release |
+| Linux | none; compiled and drew in WSL on an earlier build, tests did not build then | re-run the build and tests, make the test code portable, then test on a real Linux desktop |
 | macOS | none; no hardware, no free runner | port on Linux first, then build on a Mac |

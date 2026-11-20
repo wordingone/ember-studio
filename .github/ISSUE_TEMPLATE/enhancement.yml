@@ -1,0 +1,15 @@
+name: Request
+description: Something you want Studio, the lab, a format or an example to do.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: want
+    attributes:
+      label: What you want, and what you do today instead
+    validations:
+      required: true
+  - type: textarea
+    id: kind
+    attributes:
+      label: Where it would live
+      description: A program change (private source), a format or manifest, an example, or documentation.

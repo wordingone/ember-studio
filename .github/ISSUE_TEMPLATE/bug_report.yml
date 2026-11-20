@@ -1,0 +1,32 @@
+name: Bug report
+description: Something in a released build does not work as the documentation says.
+labels: [bug]
+body:
+  - type: input
+    id: build
+    attributes:
+      label: Build or release id
+      description: The release tag, or the version from Help > About Ember Studio together with the program's file name.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps
+      description: What you did, in order, and what you expected.
+    validations:
+      required: true
+  - type: textarea
+    id: receipt
+    attributes:
+      label: Receipt or log
+      description: The file the program wrote about this (a job receipt, a press receipt, the lab log). Remove anything private first.
+    validations:
+      required: true
+  - type: textarea
+    id: picture
+    attributes:
+      label: Picture
+      description: A picture of the window, attached here.
+    validations:
+      required: true

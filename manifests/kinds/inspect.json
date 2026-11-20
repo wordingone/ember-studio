@@ -1,0 +1,132 @@
+{
+  "format": "ember-job-kind-manifest/1",
+  "kind": "inspect",
+  "summary": "Reads a checkpoint, and optionally its parent, and writes per-tensor statistics and magnitude grids. It uses the processor and the disk only, never writes to the checkpoint and never takes the card lease.",
+  "lease_class": "cpu",
+  "lease_resource": "cpu-lane",
+  "job_id_prefix": "inspect",
+  "refusal_exit_codes": {
+    "min": 40,
+    "max": 59
+  },
+  "built": true,
+  "verbs": [
+    "check_lab_job",
+    "start_lab_job",
+    "lab_job_status"
+  ],
+  "request": [
+    {
+      "name": "kind",
+      "type": "string",
+      "required": false,
+      "meaning": "Must be `inspect` (also the default)."
+    },
+    {
+      "name": "checkpoint",
+      "type": "string (absolute path)",
+      "required": true,
+      "meaning": "A checkpoint: an ember-cia directory, a torch-pt object, or a .safetensors file."
+    },
+    {
+      "name": "parent",
+      "type": "string (absolute path)",
+      "required": false,
+      "meaning": "The parent checkpoint; with it the result also reports each tensor's update against the parent."
+    },
+    {
+      "name": "grid",
+      "type": "integer (1 to 64)",
+      "required": false,
+      "meaning": "The side of the magnitude grid. Default 64."
+    }
+  ],
+  "writes": [
+    {
+      "path": "<lab log folder>/lab-jobs/<job id>/request.json",
+      "meaning": "The request the worker reads."
+    },
+    {
+      "path": "<lab log folder>/lab-jobs/<job id>/receipt-intent.json",
+      "meaning": "The intent receipt (ember-lab-job-intent-v1), written before the worker exists."
+    },
+    {
+      "path": "<lab log folder>/lab-jobs/<job id>/receipt-terminal.json",
+      "meaning": "The terminal receipt (ember-lab-job-terminal-v1): published, cache_hit, failed or killed_or_crashed."
+    },
+    {
+      "path": "<lab log folder>/inspect-cache/<fingerprint>.json",
+      "meaning": "The result (ember-lab-inspect-result-v1), cached by the fingerprint of the checkpoint, parent and grid; an identical later request is answered from it with no worker."
+    }
+  ],
+  "refusal_codes": [
+    {
+      "code": "inspect_path_relative",
+      "rc": 40
+    },
+    {
+      "code": "inspect_checkpoint_missing",
+      "rc": 41
+    },
+    {
+      "code": "inspect_checkpoint_format",
+      "rc": 42
+    },
+    {
+      "code": "inspect_checkpoint_incomplete",
+      "rc": 43
+    },
+    {
+      "code": "inspect_checkpoint_in_flux",
+      "rc": 44
+    },
+    {
+      "code": "inspect_parent_same",
+      "rc": 45
+    },
+    {
+      "code": "inspect_parent_no_overlap",
+      "rc": 46
+    },
+    {
+      "code": "inspect_grid_invalid",
+      "rc": 47
+    },
+    {
+      "code": "inspect_worker_missing",
+      "rc": 48
+    },
+    {
+      "code": "inspect_lease_conflict",
+      "rc": 49
+    },
+    {
+      "code": "inspect_receipt_write",
+      "rc": 50
+    },
+    {
+      "code": "inspect_spawn_failed",
+      "rc": 51
+    },
+    {
+      "code": "inspect_checkpoint_changed",
+      "rc": 52
+    },
+    {
+      "code": "inspect_read_failed",
+      "rc": 53
+    },
+    {
+      "code": "inspect_result_write",
+      "rc": 54
+    },
+    {
+      "code": "inspect_cancelled",
+      "rc": 55
+    },
+    {
+      "code": "inspect_cpu_placement",
+      "rc": 56
+    }
+  ]
+}

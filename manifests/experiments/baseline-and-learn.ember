@@ -1,0 +1,49 @@
+{
+  "schema": "ember-research/1",
+  "title": "baseline-and-learn",
+  "question": "How much does a short fine-tune change a model's score on a fixed benchmark, against its untouched baseline?",
+  "created_utc": "2026-01-01T00:00:00Z",
+  "hypotheses": [
+    {
+      "id": "H1",
+      "text": "A short fine-tune raises the score by more than the run-to-run spread of the baseline.",
+      "status_word": "open"
+    }
+  ],
+  "models": [
+    {
+      "role": "recipient",
+      "name": "example-recipient",
+      "path": "/models/example-recipient",
+      "sha256": "",
+      "licence_row": "licence of the model, as its model card states it"
+    }
+  ],
+  "experiments": [
+    {
+      "id": "e1",
+      "title": "Baseline score",
+      "kind": "BASELINE",
+      "spec_path": "specs/e1-baseline.md",
+      "spec_sha256": "",
+      "bar_path": "specs/e1-baseline.md#bar",
+      "bar_sha256": "",
+      "lab_job_ids": [],
+      "result_words": [],
+      "ruling_path": ""
+    },
+    {
+      "id": "e2",
+      "title": "Short fine-tune",
+      "kind": "LEARN",
+      "spec_path": "specs/e2-learn.md",
+      "spec_sha256": "",
+      "bar_path": "specs/e2-learn.md#bar",
+      "bar_sha256": "",
+      "lab_job_ids": [],
+      "result_words": [],
+      "ruling_path": ""
+    }
+  ],
+  "receipts": []
+}

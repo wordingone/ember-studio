@@ -1,0 +1,18 @@
+name: Documentation mistake
+description: A page here says something that is not true of the program, or does not say something it should.
+labels: [docs]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page
+      description: The file and the sentence.
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What is wrong and what is true
+      description: Say what you ran or read to find out, and the build or release id.
+    validations:
+      required: true

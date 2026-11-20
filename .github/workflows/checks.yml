@@ -1,0 +1,29 @@
+name: checks
+
+# Everything here runs on the public runners and needs no secret. This repository holds no program source:
+# the checks read documents, formats, manifests and examples, and refuse anything else.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install jsonschema==4.26.0
+      - name: Allow-list, docs, formats, release verifier (each with its deliberate reds)
+        run: python checks/run_all.py

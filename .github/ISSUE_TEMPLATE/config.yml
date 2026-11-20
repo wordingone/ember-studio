@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Known limits
+    url: https://github.com/wordingone/ember-studio/blob/main/docs/known-limits.md
+    about: What is already known not to work or not to be built.

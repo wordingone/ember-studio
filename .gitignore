@@ -1,3 +1,5 @@
 target/
 *.pdb
 .cache/
+__pycache__/
+*.pyc

@@ -1,6 +1,6 @@
 # 03 Models
 
-The models in play, drawn as a map, the older checkpoint lineage, and a side by side compare. The map and compare pictures were drawn by build `edb7d3ad` offscreen on made-up folders (see [how the pictures were made](train.md#how-the-pictures-were-made)); the lineage picture and the recording are from `185b8abd`.
+The models in play, drawn as a map, the older checkpoint lineage, and a side by side compare. The map and compare pictures were drawn by build `edb7d3ad` offscreen on made-up folders (see [how the pictures were made](train.md#how-the-pictures-were-made)); the lineage picture and the recording are from `185b8abd`. On the current build, `de6494fe`, an offscreen render on made-up folders draws the same groups, circles and warning mark as the first picture below, so it was not redrawn.
 
 ## What it shows
 
@@ -37,7 +37,9 @@ COMPARE opens two frames, **A** (left) and **B** (right), with an arrow between 
 
 ![Compare: A and B filled, each with size, files and kind](../media/models-compare.png)
 
-The picture was made by naming both models with the render verb (`--select` and `--compare-a`, see [command line](../command-line.md)). Picking models into A and B with the mouse was not exercised, and the small marks between the frames were not read, so this guide does not say what they count.
+The picture was made by naming both models with the render verb (`--select` and `--compare-a`, see [command line](../command-line.md)). Picking models into A and B with the mouse was not exercised. According to the program's manual the marks between the frames are one word and one arrow per row (`size A larger`, `files equal`): the arrow points to the larger side and its length is the gap as a share of the larger value; it is a plain comparison of the two values, with no statistic and no verdict. That was read from the manual, not checked against a picture.
+
+With a delta map for the pair (a `*delta-map*.json` file in the delta root, `--delta-root` or `EMBER_DELTA_MAP_ROOT`, else the parent folder of the transplant runs root), a band is drawn under the two frames: one bar per layer for that layer's share of the weight difference between donor and recipient, a dashed line at the even share, and the whole-model and embedding differences in the header. Selecting a layer's bar shows its share and its `down_proj` difference. Without a map the frames keep their marks and the page says `no delta map for this pair`. Not drawn for this guide.
 
 ![Recording: 3B LINEAGE on and off, then COMPARE on and off](../media/models.gif)
 

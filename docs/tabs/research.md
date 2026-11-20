@@ -1,6 +1,6 @@
 # 06 Research
 
-A workbench for transplant experiments: a donor network and a recipient network drawn in 3D, the live experiments beneath them, a research project file, and a paper pane. The pictures were drawn by build `edb7d3ad` on made-up data (see [how the pictures were made](train.md#how-the-pictures-were-made)): a project named `demo-transplant` with two experiments and two small models called `demo-donor` and `demo-recipient`.
+A workbench for transplant experiments: a donor network and a recipient network drawn in 3D, the live experiments beneath them, a research project file, and a paper pane. The pictures were drawn by build `edb7d3ad` on made-up data (see [how the pictures were made](train.md#how-the-pictures-were-made)): a project named `demo-transplant` with two experiments and two small models called `demo-donor` and `demo-recipient`. They were not redrawn on the current build, `de6494fe`; what changed since is listed under [Since these pictures](#since-these-pictures).
 
 ## What it shows
 
@@ -15,6 +15,16 @@ A workbench for transplant experiments: a donor network and a recipient network 
 ![Experiment e2 selected: the right panel shows its detail](../media/research-e2.png)
 
 Layer buttons (all layers, L6, L12, L18) and link lines appear for an experiment that has links; those were checked on build `185b8abd` and are not in these pictures. The recording below is of that build.
+
+## Since these pictures
+
+Read from the program's manual and source for `de6494fe`; not drawn for this guide.
+
+- When a transplant runs root is set (`--slot-root`), the first row of chips lists the presses found there (P1, P4, N3 and so on), each read from the run folder's own identity and receipt files, with the newest selected on open; the project's own experiments follow. A second row lists the selected press's arms, smallest slot first. In a press each slab is one layer's feed-forward neurons and the lit cells are the arm's slot indices.
+- No link line is drawn until you select a layer or a cell; then at most 64 of that selection's links are drawn, and an `all links` toggle draws up to 256.
+- Live experiments reads the lab's jobs under the open project: the frozen bar with a check that its file still matches the hash recorded when it was frozen, one card per job with its state, a progress bar and a curve read from the run's own log files. A number that no file declares reads `not declared by the run`.
+- The paper pane has a `Save PDF` button that copies the built PDF into your Downloads folder; with no built PDF it is off.
+- With no LEARN store configured the page says `no LEARN store is configured: pass --learn-root DIR or set EMBER_STUDIO_LEARN_ROOT`.
 
 ## The project
 

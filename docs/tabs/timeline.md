@@ -1,6 +1,6 @@
 # 08 Timeline
 
-Every press receipt and every lab job event, in time order. The picture was drawn by build `edb7d3ad` offscreen on made-up data (see [how the pictures were made](train.md#how-the-pictures-were-made)); the recording was made on `185b8abd`.
+Every press receipt and every lab job event, in time order. The picture was drawn by build `edb7d3ad` offscreen on made-up data (see [how the pictures were made](train.md#how-the-pictures-were-made)); the recording was made on `185b8abd`. On the current build, `de6494fe`, `ui-tree` lists the same range and source controls, with the disabled reasons quoted below.
 
 ## What it shows
 
@@ -19,7 +19,7 @@ If no press receipts file is configured the page says so and names the flag.
 | RANGE | 1H / 24H / ALL | Keeps the last hour, the last day or everything. When no event falls in the range the page says so |
 | SOURCE | ALL / PRESS / LAB | Shows both kinds, only press receipts, or only lab events |
 
-A control that already matches the current view is disabled and says so (`every row is already shown: choose 1h or 24h to cut the range`). 1H, 24H, PRESS and LAB were not pressed on `edb7d3ad`; they were operated on `185b8abd`:
+A control that already matches the current view is disabled and says so (`every row is already shown: choose 1h or 24h to cut the range`). 1H, 24H, PRESS and LAB were not pressed on `edb7d3ad` or `de6494fe`; they were operated on `185b8abd`:
 
 ![Recording: 24H, ALL, then the LAB and PRESS sources](../media/timeline.gif)
 

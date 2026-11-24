@@ -26,7 +26,7 @@ import subprocess
 import sys
 
 ALLOW = [
-    "README.md", "CHANGELOG.md", "ROADMAP.md", "LICENSE", "TERMS-RELEASED-BUILDS.md",
+    "README.md", "CHANGELOG.md", "ROADMAP.md", "LICENSE", "NOTICE", "TERMS-RELEASED-BUILDS.md",
     "CONTRIBUTING.md", "AGENTS.md", "CLAUDE.md", "SECURITY.md", "CODE_OF_CONDUCT.md",
     ".gitignore", ".gitattributes",
     "docs/**", "manifests/**", "examples/**", "themes/**", "checks/**",

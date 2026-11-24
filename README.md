@@ -78,4 +78,4 @@ This repository holds documentation, formats, manifests, examples, checks and, o
 
 ## License
 
-See [LICENSE](LICENSE). It covers what is in this repository. Released program files carry their own terms.
+The contents of this repository are licensed under the [Apache License 2.0](LICENSE); see also [NOTICE](NOTICE). Released program files carry their own terms.

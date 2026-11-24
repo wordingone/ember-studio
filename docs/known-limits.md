@@ -8,7 +8,7 @@ What does not work, is not built, or was not checked in build `de6494fe` (v0.5.0
 - **No Linux and no macOS build.** A Linux build compiled and drew in WSL on an earlier build (`185b8abd`) but its tests did not build; this was not re-measured on the current source. There is no macOS build. See [platforms](platforms.md).
 - **Linux Studio needs a Linux ember-lab.** Blocker: a Linux Studio can draw its tabs, but everything that asks the lab has nothing to talk to, because the lab's Windows-only parts (its card lock, job control and its named pipe) exist only for Windows. Cure: port those parts of the lab to Linux (a Unix socket in place of the pipe, a portable card lock). The folders are already settings. A Linux Studio release follows that work. No date is promised.
 - **The build is not code-signed.** Windows SmartScreen may warn.
-- **Terms for the released program** are separate from this repository's licence; they have not been published yet. Read [LICENSE](../LICENSE) for what it covers.
+- **Terms for the released program** are separate from this repository's Apache-2.0 licence; they have not been published yet. [LICENSE](../LICENSE) covers the contents of this repository.
 
 ## Not built yet (the five capabilities)
 

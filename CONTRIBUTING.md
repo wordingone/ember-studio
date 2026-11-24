@@ -25,6 +25,7 @@ If a bug is in the program, open an issue (below). Do not try to fix it here.
 3. No personal names, no secrets, no folder paths of your machine (use placeholders such as `<folder>` and variables such as `%LOCALAPPDATA%`).
 4. An example runs on a small open model, names the model and its licence, finishes in under ten minutes on a consumer card and uses only documented commands.
 5. Keep a pull request to one purpose. A move of a file and a change of its text go in separate commits.
+6. A contribution is licensed under the [Apache License 2.0](LICENSE), like the rest of this repository (section 5 of that license).
 
 ## Opening an issue
 

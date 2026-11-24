@@ -4,6 +4,9 @@ Changes to what this repository publishes and to the program as documented here.
 
 ## Unreleased
 
+### Licence
+- Changed: the contents of this repository are licensed under the Apache License 2.0 (`LICENSE`, `NOTICE`), replacing the earlier source-available terms. Released program files carry their own terms.
+
 ### Documentation, checked against build `de6494fe` (version 0.5.0 preview)
 - Added: [the five capabilities](docs/capabilities.md), [how the program is built](docs/architecture.md) (sixteen packages in three folders and the rule between them), [file formats](docs/formats/README.md) with JSON Schemas and examples, the [command reference](docs/interface/commands.md) and its schema, job kind and experiment manifests under `manifests/`, example agent scripts under `examples/agents/`.
 - Added: the allow-list check (`checks/allowlist.py`), the release verifier (`checks/verify_release.py`), format validation (`checks/validate_formats.py`) and `checks/run_all.py`, each with deliberate reds.
